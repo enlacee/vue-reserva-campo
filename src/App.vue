@@ -1,45 +1,52 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
+import Home from './components/Home.vue'
+import { isMobile } from './utils/validate';
 
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+let clientid = '';
+if( urlParams.has('clientid') ){
+  clientid = urlParams.get('clientid');
+}
+console.log('clientid', clientid);
+
+</script>
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <div v-if="isMobile() == false" class="web shadow">
+        <Home :clientid="clientid" />
+      </div>
+      <div v-if="isMobile() == true" class="w-full">
+        <Home :clientid="clientid" />
+      </div>
     </div>
   </header>
-
-  <main>
-    <TheWelcome />
-  </main>
 </template>
-
 <style scoped>
-header {
-  line-height: 1.5;
+.wrapper{
+  display: flex;
+  flex-flow: column wrap;
+  /*justify-content: center;*/
+  align-items: center;
+  background-color:#ccc;
+  width: 100%;
+  height: 100vh;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.wrapper > div {
+  background-color: white;
+  height: 100vh;
+  border: 1px solid black;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.web{
+  /*
+    320px — 480px: Mobile devices
+    481px — 768px: iPads, Tablets
+    769px — 1024px: Small screens, laptops
+    1025px — 1200px: Desktops, large screens
+  */
+  width: 481px;
+  max-width: 481px;
 }
 </style>
