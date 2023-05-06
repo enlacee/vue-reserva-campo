@@ -11,8 +11,8 @@ export default {
      * Redirect to new View
      */
     redirectToComponent (event) {
-      console.log('cickkk', 'set StepOneDate');
-      const nameOfComponent = 'StepOneDate';
+      console.log('cickkk', 'set OneDate');
+      const nameOfComponent = 'OneDate';
       this.$emit('changeCurrentComponent', nameOfComponent);
     },
     loadCliendId() {

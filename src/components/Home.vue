@@ -1,20 +1,20 @@
 <script>
 import Reservation from './reservations/Reservation.vue';
-import StepOneDate from './reservations/steps/OneDate.vue';
-import StepTwoTime from './reservations/steps/TwoTime.vue';
-import StepThreePayment from './reservations/steps/ThreePayment.vue';
+import OneDate from './reservations/steps/OneDate.vue';
+import TwoTime from './reservations/steps/TwoTime.vue';
+import ThreePayment from './reservations/steps/ThreePayment.vue';
 
 export default {
   components: {
     Reservation,
-    StepOneDate,
-    StepTwoTime,
-    StepThreePayment
+    OneDate,
+    TwoTime,
+    ThreePayment
   },
   data() {
     return {
       currentTab: 'Reservation',
-      tabs: ['Reservation', 'StepOneDate', 'StepTwoTime', 'StepThreePayment']
+      tabs: ['Reservation', 'OneDate', 'TwoTime', 'ThreePayment']
     }
   },
   computed: {},
