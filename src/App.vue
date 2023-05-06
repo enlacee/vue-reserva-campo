@@ -2,23 +2,15 @@
 import Home from './components/Home.vue'
 import { isMobile } from './utils/validate';
 
-let queryString = window.location.search;
-let urlParams = new URLSearchParams(queryString);
-let clientid = '';
-if( urlParams.has('clientid') ){
-  clientid = urlParams.get('clientid');
-}
-console.log('clientid', clientid);
-
 </script>
 <template>
   <header>
     <div class="wrapper">
       <div v-if="isMobile() == false" class="web shadow">
-        <Home :clientid="clientid" />
+        <Home/>
       </div>
       <div v-if="isMobile() == true" class="w-full">
-        <Home :clientid="clientid" />
+        <Home/>
       </div>
     </div>
   </header>
