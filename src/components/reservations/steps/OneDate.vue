@@ -76,7 +76,7 @@ export default {
 <template>
   <div id="theapp" class="px-8 pt-6 pb-8 mb-4">
     <div class="w-full">
-      <h1 class="text-center font-bold text-xl mb-6">Calendario de Reservacion</h1>
+      <h1 class="text-center font-bold text-xl mb-6">Calendario</h1>
     </div>
     <div class="vcal">
       <div class="vcal-nav" aria-label="Calendar Navigation">

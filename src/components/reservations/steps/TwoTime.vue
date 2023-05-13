@@ -27,12 +27,12 @@ export default {
     </div>
     <p>&nbsp;</p>
     <div class="flex gap-2">
-      <button 
+      <button
         @click="$emit('changeCurrentComponent', 'OneDate')"
         class="flex-grow-0 bg-white text-black py-2 px-4 border-black border-2">
         Atras
       </button>
-      <button 
+      <button
         @click="$emit('changeCurrentComponent', 'ThreePayment')"
         class="flex-grow bg-black text-white py-2 px-4">
         Reservar y Pagar
