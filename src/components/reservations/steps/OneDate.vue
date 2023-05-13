@@ -125,8 +125,19 @@ selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).
 		</div>
     </div>
     <p>&nbsp;</p>
-    <button class="bg-black text-white py-2 px-4 focus:outline-none focus:shadow-outline w-full"
-      type="button" @click="$emit('changeCurrentComponent', 'TwoTime')">Siguiente</button>
+
+    <div class="flex gap-2">
+      <button
+        @click="$emit('changeCurrentComponent', 'Reservation')"
+        class="flex-grow-0 bg-white text-black py-2 px-4 border-black border-2">
+        Atras
+      </button>
+      <button
+        @click="$emit('changeCurrentComponent', 'TwoTime')"
+        class="flex-grow bg-black text-white py-2 px-4">
+        Siguiente
+      </button>
+    </div>
   </div>
 </template>
 

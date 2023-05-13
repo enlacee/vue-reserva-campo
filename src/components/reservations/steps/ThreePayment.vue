@@ -15,24 +15,19 @@ import ImageYape from '../../base64images/ImageYape.vue';
         </div>
         <div class="w-full">
             <form class="bg-white">
-                <div class="mb-0">
+                <div class="mb-4">
                     <label class="block text-gray-700 text-sm mb-2" for="rent-time">
-                    Tiempo alquilado
+                    Resumen:
                     </label>
-                    <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="rent-time" type="text" placeholder=""
-                    value="2 horas">
-                </div>
-                <div class="mb-0">
-                    <label class="block text-gray-700 text-sm mb-2" for="total-to-pay">
-                    Total a pagar
-                    </label>
-                    <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="total-to-pay" type="text" placeholder="" value="s/ 60.00 nuevos soles">
+                    <textarea cols="30" disabled
+                        class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        >[Desde 16-18] - 2 horas - s/ 60.00 nuevos soles
+                    </textarea>
                 </div>
                 <div class="mb-0 flex place-content-center">
                     <label class="text-xs">
-                        Metodo de pago YAPE: (978412712)
+                        Metodo de pago YAPE: (978412712) <br/>
+                        <!-- <span class="font-bold">Pago minimo: s/ 30.00</span> -->
                     </label>
                 </div>
                 <div class="img-yape-container flex place-content-center">

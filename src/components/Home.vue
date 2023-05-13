@@ -31,14 +31,14 @@ export default {
 
 </script>
 <template>
-  <button
+  <!-- <button
       v-for="tab in tabs"
       :key="tab"
       :class="['bg-blue-500  px-4 m-1 border-black border-2', { active: currentTab === tab }]"
       @click="currentTab = tab"
     >
     {{ tab }}
-  </button>
+  </button> -->
 
   <component :is="currentTab" @changeCurrentComponent="setComponentName"></component>
 

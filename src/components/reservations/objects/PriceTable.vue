@@ -2,7 +2,7 @@
     <table class="table-auto">
         <thead>
         <tr>
-            <th colspan="2" class="border px-3 py-1 bg-gray-200">Precios</th>
+            <th colspan="2" class="border px-3 py-1 bg-gray-200">Precio por 1 hora</th>
         </tr>
         </thead>
         <tr>
