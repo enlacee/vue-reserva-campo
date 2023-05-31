@@ -1,7 +1,10 @@
 <script>
-// Crear un mapero del objeto client:
-// para setearlo bien
-// Usar typescript lo valida mejor
+/**
+ * Crear un mapero del objeto client:
+ * para setearlo bien
+ * Usar typescript lo valida mejor
+ *
+ **/
 import PriceTable from '../reservations/shared/PriceTable.vue';
 
 export default {
@@ -9,85 +12,26 @@ export default {
     PriceTable
   },
   data() {
-    return {
-      ownerid: '',
-      owner: {}
-    }
-  },
-  beforeCreate() {
-    // this.$store.commit('initialiseStore');
-    // this.loadOwnerData();
-
+    return {}
   },
   mounted() {
-    // this.loadOwnerId();
-    this.loadOwnerData();
-
-    // this.owner = this.$store.state.owner;
+    this.$store.dispatch('refreshOwnerData');
   },
   methods: {
-    /**
-     * Redirect to new View
-     */
     redirectToComponent (event) {
-      console.log('cickkk', 'set OneDate');
       const nameOfComponent = 'OneDate';
       this.$emit('changeCurrentComponent', nameOfComponent);
-    },
-    loadOwnerId() {
-      let queryString = window.location.search;
-      let urlParams = new URLSearchParams(queryString);
-      let ownerid = '';
-      if( urlParams.has('ownerid') ){
-        ownerid = urlParams.get('ownerid');
-        this.ownerid = ownerid;
-      }
-    },
-    /**
-     * Load data from localstore or fetch
-     */
-    loadOwnerData() {
-      const URLFATHER = 'https://script.google.com/macros/s/AKfycbzSyhh6sM_shxp9Jy8qa0aDx-08C7XT-CxOuV_pBGzUovrngM0TfOdhzw94TVIDcnXE/exec';
-      const URL = URLFATHER + '?op=list';
-
-      if (localStorage.getItem('owner')) {
-        try {
-          let theData = JSON.parse(localStorage.getItem('owner'));
-          this.setOwnerData(theData);
-          this.owner = this.$store.state.owner;
-        } catch(e) {
-          console.log(e);
-          localStorage.removeItem('owner');
-        }
-      } else {
-        try {
-          fetch(URL, {method: 'GET'})
-            .then(response => response.json())
-            .then((data) => {
-              console.log('response', data, data[0]);
-              let theData = data[0];
-              this.setOwnerData(theData);
-              this.owner = this.$store.state.owner;
-
-              const parsed = JSON.stringify(theData);
-              localStorage.setItem('owner', parsed);
-            });
-        } catch (err) {
-          console.log(err)
-        }
-      }
-
-    },
-    setOwnerData(theData) {
-      this.$store.commit('setOwner', theData);
     }
   },
-
+  computed: {
+        ownerData() {
+            return this.$store.getters.ownerData;
+        }
+    }
 }
 </script>
 <script setup>
-import ImageSoccerBall from '../base64images/ImageSoccerBall.vue'
-
+  import ImageSoccerBall from '../base64images/ImageSoccerBall.vue'
 </script>
 <template>
   <!-- <div v-if="ownerid"> -->
@@ -96,7 +40,7 @@ import ImageSoccerBall from '../base64images/ImageSoccerBall.vue'
       <ImageSoccerBall />
     </div>
     <div class="w-full">
-      <h1 class="text-center font-bold">{{ ownerid }} {{ owner['propietario'] }}</h1>
+      <h1 class="text-center font-bold">{{ ownerData['propietario'] }}</h1>
     </div>
     <div class="w-full">
       <form class="bg-white px-8 pt-6 pb-8 mb-4">
@@ -106,7 +50,7 @@ import ImageSoccerBall from '../base64images/ImageSoccerBall.vue'
           </label>
           <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username" type="text"
-            placeholder="Sarita Colonia Hijos de Villa los Reyes" :value="owner['nombre-campo']">
+            placeholder="Sarita Colonia Hijos de Villa los Reyes" :value="ownerData['nombre-campo']">
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm mb-2" for="password">
@@ -114,7 +58,7 @@ import ImageSoccerBall from '../base64images/ImageSoccerBall.vue'
           </label>
           <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password" type="text" placeholder="Lizardo monetero #843 Ventanilla-Callao" 
-              :value="owner['direccion']">
+              :value="ownerData['direccion']">
         </div>
         <div class="mb-6 flex place-content-center">
           <!-- pasarle data a esta tabla -->
