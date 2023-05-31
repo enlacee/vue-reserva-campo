@@ -1,5 +1,5 @@
 <script setup>
-import PriceTable from '../objects/PriceTable.vue';
+import PriceTable from '../shared/PriceTable.vue';
 import ImageYape from '../../base64images/ImageYape.vue';
 
 </script>

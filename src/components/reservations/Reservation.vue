@@ -2,20 +2,29 @@
 // Crear un mapero del objeto client:
 // para setearlo bien
 // Usar typescript lo valida mejor
+import PriceTable from '../reservations/shared/PriceTable.vue';
+
 export default {
+  components: {
+    PriceTable
+  },
   data() {
     return {
-      clientid: '',
-      client: {
-        'nombre-campo': ''
-      }
+      ownerid: '',
+      owner: {}
     }
   },
-  mounted() {
-    this.loadCliendId();
-    this.testingLoadClientData();
+  beforeCreate() {
+    // this.$store.commit('initialiseStore');
+    // this.loadOwnerData();
+
   },
-  computed: {},
+  mounted() {
+    // this.loadOwnerId();
+    this.loadOwnerData();
+
+    // this.owner = this.$store.state.owner;
+  },
   methods: {
     /**
      * Redirect to new View
@@ -25,24 +34,52 @@ export default {
       const nameOfComponent = 'OneDate';
       this.$emit('changeCurrentComponent', nameOfComponent);
     },
-    loadCliendId() {
+    loadOwnerId() {
       let queryString = window.location.search;
       let urlParams = new URLSearchParams(queryString);
-      let clientid = '';
-      if( urlParams.has('clientid') ){
-        clientid = urlParams.get('clientid');
-        this.clientid = clientid;
+      let ownerid = '';
+      if( urlParams.has('ownerid') ){
+        ownerid = urlParams.get('ownerid');
+        this.ownerid = ownerid;
       }
     },
-    testingLoadClientData() {
+    /**
+     * Load data from localstore or fetch
+     */
+    loadOwnerData() {
       const URLFATHER = 'https://script.google.com/macros/s/AKfycbzSyhh6sM_shxp9Jy8qa0aDx-08C7XT-CxOuV_pBGzUovrngM0TfOdhzw94TVIDcnXE/exec';
       const URL = URLFATHER + '?op=list';
-      fetch(URL, {method: 'GET'})
-      .then(response => response.json())
-      .then((data) => {
-        console.log('response', data, data[0]['cliente']);
-        this.client = data[0];
-      });
+
+      if (localStorage.getItem('owner')) {
+        try {
+          let theData = JSON.parse(localStorage.getItem('owner'));
+          this.setOwnerData(theData);
+          this.owner = this.$store.state.owner;
+        } catch(e) {
+          console.log(e);
+          localStorage.removeItem('owner');
+        }
+      } else {
+        try {
+          fetch(URL, {method: 'GET'})
+            .then(response => response.json())
+            .then((data) => {
+              console.log('response', data, data[0]);
+              let theData = data[0];
+              this.setOwnerData(theData);
+              this.owner = this.$store.state.owner;
+
+              const parsed = JSON.stringify(theData);
+              localStorage.setItem('owner', parsed);
+            });
+        } catch (err) {
+          console.log(err)
+        }
+      }
+
+    },
+    setOwnerData(theData) {
+      this.$store.commit('setOwner', theData);
     }
   },
 
@@ -50,17 +87,16 @@ export default {
 </script>
 <script setup>
 import ImageSoccerBall from '../base64images/ImageSoccerBall.vue'
-import PriceTable from '../reservations/objects/PriceTable.vue';
 
 </script>
 <template>
-  <!-- <div v-if="clientid"> -->
+  <!-- <div v-if="ownerid"> -->
   <div>
     <div class="flex place-content-center">
       <ImageSoccerBall />
     </div>
     <div class="w-full">
-      <h1 class="text-center font-bold">{{ clientid }} {{ client['cliente'] }}</h1>
+      <h1 class="text-center font-bold">{{ ownerid }} {{ owner['propietario'] }}</h1>
     </div>
     <div class="w-full">
       <form class="bg-white px-8 pt-6 pb-8 mb-4">
@@ -70,7 +106,7 @@ import PriceTable from '../reservations/objects/PriceTable.vue';
           </label>
           <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username" type="text"
-            placeholder="Sarita Colonia Hijos de Villa los Reyes" :value="client['nombre-campo']">
+            placeholder="Sarita Colonia Hijos de Villa los Reyes" :value="owner['nombre-campo']">
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm mb-2" for="password">
@@ -78,7 +114,7 @@ import PriceTable from '../reservations/objects/PriceTable.vue';
           </label>
           <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             id="password" type="text" placeholder="Lizardo monetero #843 Ventanilla-Callao" 
-              :value="client['direccion']">
+              :value="owner['direccion']">
         </div>
         <div class="mb-6 flex place-content-center">
           <!-- pasarle data a esta tabla -->

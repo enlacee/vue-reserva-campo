@@ -20,8 +20,8 @@ export default {
     </div>
     <div class="flex-auto">
       <button v-for="n in 24" :disabled="(n < new Date().getHours()) ? true : false"
-        class="bg-white text-black hover:bg-blue py-2 px-4 border-black border w-1/6 mr-1 mb-1"
-        :class="(n < new Date().getHours()) ? 'disabled:opacity-75' : ''">
+        class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1 border border-gray-400 shadow"
+        :class="(n < new Date().getHours()) ? 'disabled:opacity-75 cursor-not-allowed' : 'hover:bg-gray-100'">
         {{ n }}
       </button>
     </div>
