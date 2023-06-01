@@ -3,7 +3,8 @@ export default {
   emits: ['changeCurrentComponent'],
   data() {
     return {
-      dayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      // dayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      dayNames: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
       monthNames: [
         "Jan",
         "Feb",
@@ -20,7 +21,8 @@ export default {
       ],
       selectedMonth: new Date().getMonth(),
       selectedYear: new Date().getFullYear(),
-      selectedDate: null
+      // selectedDate: null
+      selectedDate: new Date()
     };
   },
   computed: {
@@ -69,6 +71,17 @@ export default {
       // set and emit selected date
       this.selectedDate = new Date(this.selectedYear, this.selectedMonth, day);
       this.$emit("dateSelected", this.selectedDate);
+    }
+  },
+  mounted() {
+    // Selected format date
+    let dateFormatedYYYMD = `${this.selectedDate.getFullYear()}-${this.selectedDate.getMonth()+1}-${this.selectedDate.getDate()}`;
+    this.$store.commit("setReservationDate", dateFormatedYYYMD);
+  },
+  watch: {
+    selectedDate(newValue, oldValue) {
+      let dateFormatedYYYMD = `${newValue.getFullYear()}-${newValue.getMonth()+1}-${newValue.getDate()}`;
+      this.$store.commit("setReservationDate", dateFormatedYYYMD);
     }
   }
 };
@@ -121,7 +134,10 @@ selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).
         </div>
       </div>
       <div class="vcal-details">
-        <span data-selected="title" v-if="selectedDate">Selected Date: </span><span data-selected="date" v-if="selectedDate">{{ selectedDate.toLocaleDateString('en-us', {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'}) }}</span>
+        <span data-selected="title" v-if="selectedDate">Selected Date: </span>
+        <span data-selected="date" v-if="selectedDate">
+          {{ selectedDate.toLocaleDateString('en-us', {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'}) }}
+        </span>
 		</div>
     </div>
     <p>&nbsp;</p>

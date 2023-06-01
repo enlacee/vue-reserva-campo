@@ -4,18 +4,26 @@ import { createStore } from 'vuex';
 const store = createStore({
     state() {
         return {
-            owner: {}
+            owner: {},
+            reservation: {
+                'date': null,
+                'start-time': null,
+                'end-time': null
+            }
         }
     },
     mutations: {
         setOwner(state, payload) {
             state.owner = payload;
         },
+        setReservationDate(state, dateFormated) {
+            state.reservation.date = dateFormated;
+        },
     },
     getters: {
         ownerData(state) {
             return state.owner;
-        }
+        },
     },
     actions: {
         refreshOwnerData(context) {
