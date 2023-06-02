@@ -3,13 +3,11 @@ export default {
   emits: ['changeCurrentComponent'],
   data() {
     return {
-      selectedClass: false
+      hours: []
     }
   },
   computed: {
-    isCurrentHour() {
-      return this.selectedYear == new Date().getHours();
-    },
+
   },
   methods: {
     select: function(event){
@@ -25,7 +23,35 @@ export default {
         } else {
           this.selectButtonElement(event);
         }
+
+        // set storage data
+        this.setStorageReservationData();
       }
+    },
+
+    /**
+     * Set reservation data from storage
+     * - start-time
+     * - end-time
+     *
+     * @return void
+     **/
+    setStorageReservationData(){
+      let numbersUpdated = this.getNumberSelectedRightNow();
+        if (numbersUpdated.length > 0) {
+          this.hours = numbersUpdated;
+
+          // set data to store
+          let startTime = this.hours[0];
+          let endTime = this.hours[this.hours.length - 1] + 1;
+          this.$store.commit("setReservationStartTime", startTime);
+          this.$store.commit("setReservationEndTime", endTime);
+        } else {
+          // clear data
+          this.hours = [];
+          this.$store.commit("setReservationStartTime", null);
+          this.$store.commit("setReservationEndTime", null);
+        }
     },
 
     /**
@@ -97,7 +123,7 @@ export default {
         Atras
       </button>
       <button
-        @click="$emit('changeCurrentComponent', 'ThreePayment')"
+        @click="(this.hours.length > 0) ? $emit('changeCurrentComponent', 'ThreePayment') : false"
         class="flex-grow bg-black text-white py-2 px-4">
         Reservar y Pagar
       </button>

@@ -19,6 +19,12 @@ const store = createStore({
         setReservationDate(state, dateFormated) {
             state.reservation.date = dateFormated;
         },
+        setReservationStartTime(state, startTime) {
+            state.reservation['start-time'] = startTime;
+        },
+        setReservationEndTime(state, endTime) {
+            state.reservation['end-time'] = endTime;
+        },
     },
     getters: {
         ownerData(state) {
