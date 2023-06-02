@@ -14,30 +14,60 @@ export default {
   methods: {
     select: function(event){
       if (event) {
-        // 01. Controll number to clicked
-        let allowedNumbers = [];
-        let selectedButtons = document.querySelectorAll('#button-container button.selected');
-        if (selectedButtons.length > 0) {
-          for (let index = 0; index < selectedButtons.length; index++) {
-            const theNumber = parseInt(selectedButtons[index].getAttribute('aria-label'));
-            allowedNumbers.push(theNumber);
-          }
-          // Adding Minor and Mayor range
-          const first = allowedNumbers[0];
-          const last = allowedNumbers[allowedNumbers.length - 1];
-          allowedNumbers.push(first-1);
-          allowedNumbers.push(last+1);
-        }
-        console.log('allowedNumbers 0', allowedNumbers);
+        // this.selectButtonElement(event);
 
-        // 02. apply clicked with filter
-        let numberSelected = parseInt(event.target.getAttribute('aria-label'));
-        if (allowedNumbers.length === 0 || allowedNumbers.includes(numberSelected) === true) {
-          let el = document.querySelector(`button[aria-label="${numberSelected}"]`);
-          el.classList.toggle("selected");
+
+        let selectedHoursNow = this.getSelectedHours();
+        console.log('selectedHours', selectedHoursNow);
+
+        // this.selectButtonElementIf(selectedHoursNow);
+
+        // apply logic to select button
+        if (selectedHoursNow.length > 0) {
+          let clickedNumbers = this.selectButtonElementIf(selectedHoursNow);
+          let numberSelected = parseInt(event.target.getAttribute('aria-label'));
+          if (clickedNumbers.includes(numberSelected) === true) {
+            this.selectButtonElement(event);
+          }
+        } else {
+          this.selectButtonElement(event);
         }
-        console.log('allowedNumbers 1', allowedNumbers);
+
       }
+    },
+    selectButtonElement(event) {
+      let numberSelected = parseInt(event.target.getAttribute('aria-label'));
+      document.querySelector(`button[aria-label="${numberSelected}"]`).classList.toggle("selected");
+    },
+    getSelectedHours() {
+      let elements = document.querySelectorAll('#button-container button.selected');
+      var ids = [];
+      elements.forEach(element => ids.push(parseInt(element.getAttribute('aria-label'))) );
+
+      return ids;
+    },
+    selectButtonElementIf(items) {
+      let fnNumberAllowed = function (items) {
+        let allowedNumbersClick = [];
+        items.sort(function(a, b) {
+          return a - b;
+        });
+
+        let first = items[0];
+        let last = items[items.length - 1];
+        let prevFuture = first - 1;
+        let nextFuture = last + 1;
+        allowedNumbersClick.push(prevFuture);
+        allowedNumbersClick.push(first);
+        allowedNumbersClick.push(last);
+        allowedNumbersClick.push(nextFuture);
+
+        return allowedNumbersClick;
+      };
+
+      let allowedNumbersClick = fnNumberAllowed(items);
+      console.log('allowedNumbersClick', allowedNumbersClick);
+      return allowedNumbersClick;
     }
   }
 }
