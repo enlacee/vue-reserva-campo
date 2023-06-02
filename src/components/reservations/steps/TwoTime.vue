@@ -14,60 +14,62 @@ export default {
   methods: {
     select: function(event){
       if (event) {
-        // this.selectButtonElement(event);
-
-
-        let selectedHoursNow = this.getSelectedHours();
-        console.log('selectedHours', selectedHoursNow);
-
-        // this.selectButtonElementIf(selectedHoursNow);
-
-        // apply logic to select button
-        if (selectedHoursNow.length > 0) {
-          let clickedNumbers = this.selectButtonElementIf(selectedHoursNow);
+        // Apply logic to click the button
+        let numbers = this.getNumberSelectedRightNow();
+        if (numbers.length > 0) {
+          let allowedNumbers = this.getAllowedNumbers(numbers);
           let numberSelected = parseInt(event.target.getAttribute('aria-label'));
-          if (clickedNumbers.includes(numberSelected) === true) {
+          if (allowedNumbers.includes(numberSelected) === true) {
             this.selectButtonElement(event);
           }
         } else {
           this.selectButtonElement(event);
         }
-
       }
     },
+
+    /**
+     * @return void
+     **/
     selectButtonElement(event) {
       let numberSelected = parseInt(event.target.getAttribute('aria-label'));
       document.querySelector(`button[aria-label="${numberSelected}"]`).classList.toggle("selected");
     },
-    getSelectedHours() {
-      let elements = document.querySelectorAll('#button-container button.selected');
-      var ids = [];
-      elements.forEach(element => ids.push(parseInt(element.getAttribute('aria-label'))) );
 
+    /**
+     * @return array (int)
+     **/
+    getNumberSelectedRightNow() {
+      let ids = [];
+      let elements = document.querySelectorAll('#button-container button.selected');
+      elements.forEach(element => ids.push(parseInt(element.getAttribute('aria-label'))));
       return ids;
     },
-    selectButtonElementIf(items) {
-      let fnNumberAllowed = function (items) {
-        let allowedNumbersClick = [];
-        items.sort(function(a, b) {
+
+    /**
+     * @return array (int)
+     **/
+    getAllowedNumbers(numbers) {
+      let fnNumberAllowed = function (numbers) {
+        let result = [];
+        // Sort the number asc
+        numbers.sort(function(a, b) {
           return a - b;
         });
 
-        let first = items[0];
-        let last = items[items.length - 1];
+        let first = numbers[0];
+        let last = numbers[numbers.length - 1];
         let prevFuture = first - 1;
         let nextFuture = last + 1;
-        allowedNumbersClick.push(prevFuture);
-        allowedNumbersClick.push(first);
-        allowedNumbersClick.push(last);
-        allowedNumbersClick.push(nextFuture);
+        result.push(prevFuture);
+        result.push(first);
+        result.push(last);
+        result.push(nextFuture);
 
-        return allowedNumbersClick;
+        return result;
       };
-
-      let allowedNumbersClick = fnNumberAllowed(items);
-      console.log('allowedNumbersClick', allowedNumbersClick);
-      return allowedNumbersClick;
+      let result = fnNumberAllowed(numbers);
+      return result;
     }
   }
 }
