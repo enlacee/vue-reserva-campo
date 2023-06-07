@@ -1,8 +1,8 @@
 <script>
-import Reservation from './reservations/Reservation.vue';
-import OneDate from './reservations/steps/OneDate.vue';
-import TwoTime from './reservations/steps/TwoTime.vue';
-import ThreePayment from './reservations/steps/ThreePayment.vue';
+import Reservation from '@/components/reservations/Reservation.vue';
+import OneDate from '@/components/reservations/steps/OneDate.vue';
+import TwoTime from '@/components/reservations/steps/TwoTime.vue';
+import ThreePayment from '@/components/reservations/steps/ThreePayment.vue';
 
 export default {
   components: {
@@ -23,7 +23,6 @@ export default {
       // Change the current tab selected
       this.currentTab = nameComponent
     }
-
   }
 }
 </script>
@@ -41,5 +40,4 @@ export default {
   </button> -->
 
   <component :is="currentTab" @changeCurrentComponent="setComponentName"></component>
-
 </template>
