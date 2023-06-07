@@ -1,16 +1,47 @@
 <script>
+import checkDniModal from '../shared/checkDniModal.vue';
+
 export default {
   emits: ['changeCurrentComponent'],
+  components: {
+    checkDniModal
+  },
   data() {
     return {
-      hours: []
+      hours: [],
+      fullNameOfTheClient: '',
     }
   },
-  computed: {
+  mounted() {
 
   },
   methods: {
-    select: function(event){
+    /**
+     * Open modal just to the trigger clicked
+     *
+     * @return void
+     **/
+    openModalCheckDniModal: function(){
+      document.querySelector('#button').click();
+    },
+    /**
+     * Pre-payment
+     *
+     * @return void/booleam
+     **/
+    bookAndPay: function(event){
+      const $fullName = document.getElementById('full-name');
+      if ($fullName.value.length > 0) {
+          this.$store.commit("setReservationFullName", $fullName.value.toUpperCase()); // save in STORE
+          this.$emit('changeCurrentComponent', 'ThreePayment');
+          return true;
+      }
+
+      if (this.hours.length > 0) {
+        this.openModalCheckDniModal();
+      }
+    },
+    selectHour: function(event){
       if (event) {
         // Apply logic to click the button
         let numbers = this.getNumberSelectedRightNow();
@@ -28,7 +59,6 @@ export default {
         this.setStorageReservationData();
       }
     },
-
     /**
      * Set reservation data from storage
      * - start-time
@@ -97,9 +127,8 @@ export default {
       let result = fnNumberAllowed(numbers);
       return result;
     }
-  }
+  },
 }
-
 </script>
 <template>
   <div class="px-8 pt-6 pb-8 mb-4">
@@ -109,7 +138,7 @@ export default {
     <div class="flex-auto" id="button-container">
       <button v-for="n in 24" :disabled="(n < new Date().getHours()) ? true : false"
         class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1 border border-gray-400 shadow"
-        @click="select($event)"
+        @click="selectHour($event)"
         :aria-label="n">
         {{ n }}
       </button>
@@ -123,11 +152,15 @@ export default {
         Atras
       </button>
       <button
-        @click="(this.hours.length > 0) ? $emit('changeCurrentComponent', 'ThreePayment') : false"
+        @click="bookAndPay(event)"
         class="flex-grow bg-black text-white py-2 px-4">
         Reservar y Pagar
       </button>
     </div>
+
+    <!-- modal -->
+    <checkDniModal/>
+
   </div>
 </template>
 <style scoped>

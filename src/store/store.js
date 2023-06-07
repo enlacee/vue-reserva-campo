@@ -6,6 +6,7 @@ const store = createStore({
         return {
             owner: {},
             reservation: {
+                'full-name': null,
                 'date': null,
                 'start-time': null,
                 'end-time': null
@@ -25,10 +26,16 @@ const store = createStore({
         setReservationEndTime(state, endTime) {
             state.reservation['end-time'] = endTime;
         },
+        setReservationFullName(state, fullName) {
+            state.reservation['full-name'] = fullName;
+        }
     },
     getters: {
         ownerData(state) {
             return state.owner;
+        },
+        reservationData(state) {
+            return state.reservation;
         },
     },
     actions: {
