@@ -1,5 +1,7 @@
 import { createStore } from 'vuex';
 
+const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
+
 // Create a new store instance
 const store = createStore({
     state() {
@@ -17,8 +19,8 @@ const store = createStore({
         setOwner(state, payload) {
             state.owner = payload;
         },
-        setReservationDate(state, dateFormated) {
-            state.reservation.date = dateFormated;
+        setReservationDate(state, dateFormat) {
+            state.reservation.date = dateFormat;
         },
         setReservationStartTime(state, startTime) {
             state.reservation['start-time'] = startTime;
@@ -40,7 +42,7 @@ const store = createStore({
     },
     actions: {
         refreshOwnerData(context) {
-            const URL = 'https://script.google.com/macros/s/AKfycbzSyhh6sM_shxp9Jy8qa0aDx-08C7XT-CxOuV_pBGzUovrngM0TfOdhzw94TVIDcnXE/exec';
+            const URL = VITE_API_APPSCRIPT;
             const listURL = URL + '?op=list';
             if (localStorage.getItem('owner')) {
                 try {
