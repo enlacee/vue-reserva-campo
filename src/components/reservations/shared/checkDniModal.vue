@@ -2,6 +2,8 @@
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 
+const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
+
 // initialize components based on data attribute selectors
 onMounted(() => {
     initFlowbite();
@@ -15,6 +17,31 @@ let checkFullNameInput = function(event) {
         $fullName.focus();
     } else {
         document.querySelector('#closeButton').click();
+    }
+}
+
+let getFullNameFromAPI = function(event){
+    const API_URL = VITE_API_APPSCRIPT;
+    const $dniNumber = document.getElementById('dni');
+    const $fullName = document.getElementById('full-name');
+
+    if ($dniNumber.value.length === 8) {
+        const listURL = API_URL + `?op=get-fullname-by-dni&dni-number=${$dniNumber.value}`;
+        try {
+            fetch(listURL, { method: 'GET' })
+                .then(response => response.json())
+                .then((data) => {
+                    if(data.length === 1){
+                        data = data[0];
+                        $fullName.value = data['nombreSoli'] + ' ' + data['apePatSoli'] + ' ' +  data['apeMatSoli'];
+                    } else {
+                        alert('No se encontraron resultados');
+                    }
+                })
+                .catch(error => alert(error));
+        } catch (err) {
+            alert(err);
+        }
     }
 }
 </script>
@@ -48,21 +75,29 @@ let checkFullNameInput = function(event) {
                             Nombre completo del titular de la cuenta <strong>YAPE (unico metodo de pago)</strong></p>
                         <div>
                             <form class="bg-white" action="javascript:void(0);">
-                                <!-- <div class="flex flex-wrap">
+                                <div class="flex flex-wrap">
                                     <div class="w-full_ sm:w-2/3" style="width:69%; padding-right:1%">
                                         <label class="block text-gray-700 text-sm" for="dni">DNI</label>
-                                        <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight "
-                                            id="dni" type="text" pattern="\d" minlength="8" maxlength="8" autofocus/>
+                                        <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight "
+                                            autofocus
+                                            id="dni" type="text" pattern="[0-9]{8}"
+                                            title="Please enter only numbers"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                            maxlength="8"
+                                            minlength="8"
+                                            />
                                     </div>
                                     <div class="w-full_ sm:w-1/3" style="width: 30%;">
                                         <label class="block text-gray-700 text-sm">&nbsp;</label>
                                         <button style="padding: 7.5px; 8px"
-                                            class="bg-black text-white py-2 px-4 focus:outline-none focus:shadow-outline w-full" type="button">Validar</button>
+                                            class="bg-black text-white py-2 px-4 focus:outline-none focus:shadow-outline w-full" 
+                                            @click="getFullNameFromAPI()"
+                                            type="button">Validar</button>
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="mt-1">
-                                    <input class="uppercase shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="full-name" type="text" placeholder="JUAN CARLOS ROMERO SALAZ"/>
+                                    <input class="bg-gray-200 uppercase appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
+                                        id="full-name" type="text" placeholder="" readonly/>
                                 </div>
                             </form>
 
