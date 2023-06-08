@@ -33,7 +33,11 @@ let getFullNameFromAPI = function(event){
                 .then((data) => {
                     if(data.length === 1){
                         data = data[0];
-                        $fullName.value = data['nombreSoli'] + ' ' + data['apePatSoli'] + ' ' +  data['apeMatSoli'];
+                        if ('error' in data) {
+                            alert(data.error);
+                        } else {
+                            $fullName.value = data['nombreSoli'] + ' ' + data['apePatSoli'] + ' ' +  data['apeMatSoli'];
+                        }
                     } else {
                         alert('No se encontraron resultados');
                     }
