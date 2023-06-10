@@ -49,7 +49,6 @@ export default {
     calcPriceAccordToHour(){
         let result = 0;
         const startHour = this.reservationData['start-time'];
-        
         // Price of day
         if (startHour >= 0 && startHour <= 18) {
             result =  this.calcHoras * this.ownerData['precio-dia'];
@@ -79,14 +78,16 @@ export default {
                     <label class="block text-gray-700 text-sm mb-2" for="rent-time">
                     Resumen:
                     </label>
-                    <textarea cols="30" disabled
+                    <textarea cols="30" rows="7" disabled
                         class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        >==== Reserva =====
-* Por:            {{ reservationData['full-name'] }}
-* Fecha:          {{ reservationData['date'] }}
-* Hora de inicio: {{ reservationData['start-time'] }} horas
-* hora(s):        {{ calcHoras }}
-* Costo:          S/ {{ calcPriceAccordToHour }} nuevos soles
+                        >====== Reserva =======
+* Total:                  S/ {{ calcPriceAccordToHour }}
+* Min. adelanto:  S/ {{ calcPriceAccordToHour/2 }}
+=====================
+* Por:   {{ reservationData['full-name'] }}
+* Fecha:   {{ reservationData['date'] }}
+* Hora de inicio:   {{ reservationData['start-time'] }} horas
+* hora(s):   {{ calcHoras }}
                     </textarea>
                 </div>
                 <div class="mb-0 flex place-content-center">
