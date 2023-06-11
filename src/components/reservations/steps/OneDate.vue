@@ -162,7 +162,7 @@ selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).
   margin: 0;
   //height: 100vh;
   //padding: 5rem 1rem;
-  font-family: sans-serif;
+//   font-family: sans-serif;
   font-weight: 300;
   //background: linear-gradient(45deg, #0ba 20%, #5731ab 80%);
   box-sizing: border-box;

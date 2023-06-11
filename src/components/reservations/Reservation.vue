@@ -48,17 +48,22 @@ export default {
           <label class="block text-gray-700 text-sm mb-2" for="username">
             Campo Deportivo
           </label>
-          <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username" type="text"
+          <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
+            id="username" type="text" readonly
             placeholder="Sarita Colonia Hijos de Villa los Reyes" :value="ownerData['nombre-campo']">
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm mb-2" for="password">
-            Direccion
+            Dirección
           </label>
-          <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password" type="text" placeholder="Lizardo monetero #843 Ventanilla-Callao" 
+          <input class="shadow appearance-none border w-full py-2 px-3 text-gray-700 mb-3 leading-tight"
+            id="password" type="text" readonly
+            placeholder="Lizardo monetero #843 Ventanilla-Callao"
               :value="ownerData['direccion']">
+
+            <div v-if="ownerData['google-map-url']">
+                <a :href="ownerData['google-map-url']" class="text-sm text-blue-700">Ver mapa</a>
+            </div>
         </div>
         <div class="mb-6 flex place-content-center">
           <!-- pasarle data a esta tabla -->

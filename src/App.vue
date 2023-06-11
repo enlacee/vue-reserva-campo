@@ -22,12 +22,12 @@
     align-items: center;
     background-color:#ccc;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .wrapper > div {
     background-color: white;
-    height: 100vh;
+    min-height: 100vh;
     border: 1px solid black;
 }
 .web{
