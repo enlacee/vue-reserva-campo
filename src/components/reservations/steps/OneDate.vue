@@ -1,4 +1,6 @@
 <script>
+import { helperFormatDateYYYMMDD  } from '@/utils/validate';
+
 export default {
   emits: ['changeCurrentComponent'],
   data() {
@@ -70,17 +72,19 @@ export default {
     selectDay(day) {
       // set and emit selected date
       this.selectedDate = new Date(this.selectedYear, this.selectedMonth, day);
-      this.$emit("dateSelected", this.selectedDate);
+    //   this.$emit("dateSelected", this.selectedDate);
     }
   },
   mounted() {
     // Selected format date
     let dateFormatedYYYMD = `${this.selectedDate.getFullYear()}-${this.selectedDate.getMonth()+1}-${this.selectedDate.getDate()}`;
+    dateFormatedYYYMD = helperFormatDateYYYMMDD(dateFormatedYYYMD);
     this.$store.commit("setReservationDate", dateFormatedYYYMD);
   },
   watch: {
     selectedDate(newValue, oldValue) {
       let dateFormatedYYYMD = `${newValue.getFullYear()}-${newValue.getMonth()+1}-${newValue.getDate()}`;
+      dateFormatedYYYMD = helperFormatDateYYYMMDD(dateFormatedYYYMD);
       this.$store.commit("setReservationDate", dateFormatedYYYMD);
     }
   }
@@ -134,7 +138,7 @@ selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).
         </div>
       </div>
       <div class="vcal-details">
-        <span data-selected="title" v-if="selectedDate">Selected Date: </span>
+        <span data-selected="title" v-if="selectedDate">Fecha Seleccionada: </span>
         <span data-selected="date" v-if="selectedDate">
           {{ selectedDate.toLocaleDateString('es-pe', {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'}) }}
         </span>

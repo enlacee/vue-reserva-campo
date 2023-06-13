@@ -1,5 +1,8 @@
 <script>
 import checkDniModal from '../shared/checkDniModal.vue';
+import { helperFormatDateYYYMMDD  } from '@/utils/validate';
+
+const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
 
 export default {
     emits: ['changeCurrentComponent'],
@@ -8,12 +11,16 @@ export default {
     },
     data() {
         return {
-        hours: [],
-        fullNameOfTheClient: '',
+            hours: [],
+            isLoading: true,
         }
     },
+    created() {
+        // creando el componente
+    },
     mounted() {
-
+        // html ya montado
+        this.fetchDataReservations();
     },
     computed: {
         reservationData() {
@@ -138,6 +145,7 @@ export default {
             if (this.reservationData['date']) {
                 let today = new Date();
                 let dateFormatedYYYMD = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+                dateFormatedYYYMD = helperFormatDateYYYMMDD(dateFormatedYYYMD);
                 let currentHour = today.getHours();
                 // console.log(this.reservationData['date'], dateFormatedYYYMD, number, currentHour);
                 if (this.reservationData['date'] === dateFormatedYYYMD && currentHour >= number) {
@@ -145,48 +153,102 @@ export default {
                 }
             }
             return disabledFlag;
+        },
+
+        fetchDataReservations(){
+            let theStringDateSelected = this.reservationData['date'];
+            let theURL = VITE_API_APPSCRIPT + '?op=list-reservations&date=' + theStringDateSelected;
+            let that = this;
+            fetch(theURL, { method: 'GET' })
+                .then(response => response.json())
+                .then((data) => {
+                    // NEW Bloque 1
+                    function bloque1(data) {
+                        return new Promise(resolve => {
+                            if (data.length > 0) {
+                                data.forEach(element => {
+                                    let listaDeHoras = function(horaInicio, numeroDeHoras) {
+                                        let horas = []
+                                        for (let index = 0; index < numeroDeHoras; index++) {
+                                            horas.push(horaInicio + index);
+                                        }
+                                        return horas;
+                                    }
+                                    let theHours = listaDeHoras(element['hora-inicio'], element['horas']);
+
+                                    // Desabilitando los botones HORAS YA RESERVADAS
+                                    for (let index = 0; index < theHours.length; index++) {
+                                        document.getElementById('button-' + theHours[index]).disabled = true;
+                                    }
+                                });
+                            }
+                            resolve();
+                        });
+                    }
+                    function bloque2(that) {
+                        return new Promise(resolve => {
+                            that.isLoading = false
+                            resolve();
+                        });
+                    }
+                    bloque1(data)
+                        .then(() => bloque2(that))
+                        .then(() => {
+                            console.log("Ambos bloques completados");
+                            // Aquí puedes ejecutar cualquier otro código que necesites después de completar ambos bloques
+                        });
+
+                    console.log('data', data);
+                })
+                .catch(error => {
+                    console.error(error);
+                    this.isLoading = false;
+                });
         }
     },
 }
 </script>
 <template>
-  <div class="px-8 pt-6 pb-8 mb-4">
-    <div class="w-full">
-      <h1 class="text-center font-bold text-xl mb-6">Seleccione la hora(s) disponible(s) [24horas]</h1>
-    </div>
-    <div class="flex-auto" id="button-container">
-      <button v-for="n in 24" :disabled="isDisabledThisHour(n)"
-        class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1 border border-gray-400 shadow"
-        @click="selectHour($event)"
-        :aria-label="n">
-        {{ n }}
-      </button>
-    </div>
-    <p>&nbsp;</p>
+    <div class="px-8 pt-6 pb-8 mb-4">
+        <div v-show="isLoading">Cargando...</div>
+        <div v-show="!isLoading">
+            <div class="w-full">
+                <h1 class="text-center font-bold text-xl mb-6">Seleccione la hora(s) disponible(s) [24horas]</h1>
+            </div>
+            <div class="flex-auto" id="button-container">
+                <button v-for="n in 24" :disabled="isDisabledThisHour(n)"
+                    :id="`button-${n}`"
+                    class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1 border border-gray-400 shadow"
+                    @click="selectHour($event)"
+                    :aria-label="n">
+                    {{ n }}
+                </button>
+            </div>
+            <p>&nbsp;</p>
 
-    <div class="flex gap-2">
-      <button
-        @click="$emit('changeCurrentComponent', 'OneDate')"
-        class="flex-grow-0 bg-white text-black py-2 px-4 border-black border-2">
-        Atras
-      </button>
-      <button
-        @click="bookAndPay(event)"
-        class="flex-grow bg-black text-white py-2 px-4">
-        Reservar y Pagar
-      </button>
+            <div class="flex gap-2">
+            <button
+                @click="$emit('changeCurrentComponent', 'OneDate')"
+                class="flex-grow-0 bg-white text-black py-2 px-4 border-black border-2">
+                Atras
+            </button>
+            <button
+                @click="bookAndPay(event)"
+                class="flex-grow bg-black text-white py-2 px-4">
+                Reservar y Pagar
+            </button>
+            </div>
+
+            <!-- modal -->
+            <checkDniModal/>
+        </div>
     </div>
-
-    <!-- modal -->
-    <checkDniModal/>
-
-  </div>
 </template>
 <style scoped>
-  button[disabled]{
-    opacity: 0.5;
-  }
-  .selected{
-    background-color: #ccc;
-  }
+    button[disabled]{
+        opacity: 0.5;
+    }
+    .selected{
+        background-color: #ccc;
+    }
 </style>
