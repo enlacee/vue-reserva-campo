@@ -1,8 +1,7 @@
 <script>
 import checkDniModal from '../shared/checkDniModal.vue';
 import { helperFormatDateYYYMMDD  } from '@/utils/validate';
-
-const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
+import ReservationService from '@/services/ReservationService';
 
 export default {
     emits: ['changeCurrentComponent'],
@@ -155,14 +154,15 @@ export default {
             return disabledFlag;
         },
 
+        /**
+         * Ajax function
+         */
         fetchDataReservations(){
-            let theStringDateSelected = this.reservationData['date'];
-            let theURL = VITE_API_APPSCRIPT + '?op=list-reservations&date=' + theStringDateSelected;
             let that = this;
-            fetch(theURL, { method: 'GET' })
-                .then(response => response.json())
+            let params = { date: this.reservationData['date'] };
+
+            ReservationService.get(params)
                 .then((data) => {
-                    // NEW Bloque 1
                     function bloque1(data) {
                         return new Promise(resolve => {
                             if (data.length > 0) {
@@ -200,7 +200,7 @@ export default {
 
                     console.log('data', data);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error(error);
                     this.isLoading = false;
                 });
