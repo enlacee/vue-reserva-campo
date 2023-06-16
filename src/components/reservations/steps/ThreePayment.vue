@@ -9,7 +9,7 @@ export default {
     return {}
   },
   mounted() {
-    this.countdown('clock', 0, 5);
+    this.countdown('clock', 4, 0);
   },
   methods: {
     countdown: function (element, minutes, seconds) {
@@ -21,6 +21,7 @@ export default {
             if (time <= 0) {
                 alert("se acabo su tiempo! [redirect]");
                 clearInterval(interval);
+                // window.location.href = '/';
                 return;
             }
             var minutes = Math.floor( time / 60 );
@@ -31,9 +32,37 @@ export default {
             el.innerHTML = text;
             time--;
         }, 1000);
-    }
+    },
+    calculateReservationCost(startTime, durationInHour){
+        const rateBefore18 = this.ownerData['precio-dia'];
+        const rateAfter18 = this.ownerData['precio-noche'];
 
+        // Convert StartTime and durationInHour to numeric values
+        let start = parseInt(startTime, 10);
+        let durationNum = parseInt(durationInHour, 10);
 
+        // Calc the total cost of the reservation
+        let totalCost = 0;
+        let remainingHours = durationNum;
+
+        while(remainingHours > 0) {
+            if (start >= 0 && start < 18) {
+                const hoursUntil18 = Math.min(remainingHours, 18 - start);
+                totalCost += hoursUntil18 * rateBefore18;
+                remainingHours -= hoursUntil18;
+                start += hoursUntil18;
+            }
+
+            if (start >= 18 && start < 24) {
+                const hoursUntil24 = Math.min(remainingHours, 24 - start);
+                totalCost += hoursUntil24 * rateAfter18;
+                remainingHours -= hoursUntil24;
+                start += hoursUntil24;
+            }
+        }
+
+        return totalCost;
+    },
   },
   computed: {
     reservationData() {
@@ -45,19 +74,6 @@ export default {
     calcHoras() {
         let result = this.reservationData['end-time'] - this.reservationData['start-time'];
         return Math.abs(result);
-    },
-    calcPriceAccordToHour(){
-        let result = 0;
-        const startHour = this.reservationData['start-time'];
-        // Price of day
-        if (startHour >= 0 && startHour <= 18) {
-            result =  this.calcHoras * this.ownerData['precio-dia'];
-        } else {
-            // Price of night
-            result =  this.calcHoras * this.ownerData['precio-noche'];
-        }
-
-        return result;
     },
   },
 }
@@ -81,8 +97,7 @@ export default {
                     <textarea cols="30" rows="7" disabled
                         class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >====== Reserva =======
-* Total:                  S/ {{ calcPriceAccordToHour }}
-* Min. adelanto:  S/ {{ calcPriceAccordToHour/2 }}
+* Total:                  S/ {{ calculateReservationCost(reservationData['start-time'], calcHoras) }}
 =====================
 * Por:   {{ reservationData['full-name'] }}
 * Fecha:   {{ reservationData['date'] }}
