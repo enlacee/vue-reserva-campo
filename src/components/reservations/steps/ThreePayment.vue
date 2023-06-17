@@ -1,9 +1,11 @@
 <script>
 import PriceTable from '../shared/PriceTable.vue';
+import PaymentButton from '../shared/PaymentButton.vue';
 
 export default {
   components: {
     PriceTable,
+    PaymentButton
   },
   data() {
     return {}
@@ -75,26 +77,36 @@ export default {
         let result = this.reservationData['end-time'] - this.reservationData['start-time'];
         return Math.abs(result);
     },
+    dataObjectForPayment() {
+        let reservationData = this.reservationData;
+        let durationInHours = this.calcHoras;
+        let price = this.calculateReservationCost(reservationData['start-time'], durationInHours);
+        let paymentData = {
+            ...reservationData,
+            durationInHours,
+            price
+        };
+
+        return paymentData;
+    }
   },
 }
 </script>
 <template>
-    <div class="px-8 pt-6 pb-8 mb-4">
+    <div class="px-3 pt-6">
         <div class="w-full">
-            <h1 class="text-center font-bold text-xl mb-6">Pagar en (<span id="clock">00:00</span>)</h1>
+            <h1 class="text-center font-bold text-xl mb-4">Pagar en (<span id="clock">00:00</span>)</h1>
         </div>
         <div class="w-full">
             <div class="mb-2 flex place-content-center text-xs">
                 <PriceTable />
             </div>
         </div>
+
         <div class="w-full">
             <form class="bg-white">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm mb-2" for="rent-time">
-                    Resumen:
-                    </label>
-                    <textarea cols="30" rows="7" disabled
+                <div class="mb-0">
+                    <textarea cols="30" rows="2" disabled
                         class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >====== Reserva =======
 * Total:                  S/ {{ calculateReservationCost(reservationData['start-time'], calcHoras) }}
@@ -105,25 +117,24 @@ export default {
 * hora(s):   {{ calcHoras }}
                     </textarea>
                 </div>
-                <div class="mb-0 flex place-content-center">
-                    <label class="text-xs">
-                        Metodo de pago YAPE: ({{ownerData['numero']}}) <br/>
+                <div class="mb-1 flex place-content-center">
+                    <label>
+                        Metodo de pago YAPE: {{ownerData['numero']}} <br/>
                         <!-- <span class="font-bold">Pago minimo: s/ 30.00</span> -->
                     </label>
                 </div>
-                <div class="img-yape-container flex place-content-center">
+
+                <PaymentButton :dataObject="dataObjectForPayment"></PaymentButton>
+
+                <!-- <div class="img-yape-container flex place-content-center">
                     <img class="py-2" :src="ownerData['imagen-qr-yape']"/>
-                </div>
-                <div class="mb-2 flex place-content-center">
-                    <span class="mr-2">Estado:</span>
-                    <span class="text-red-500 font-bold">No Pagado</span>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>
 </template>
 <style>
-.img-yape-container img{
-    height: 220px;
-}
+    .img-yape-container img{
+        height: 220px;
+    }
 </style>

@@ -35,7 +35,7 @@ export default {
 </script>
 <template>
   <!-- <div v-if="ownerid"> -->
-  <div>
+<div class="px-3 pt-6">
     <div class="flex place-content-center">
       <ImageSoccerBall />
     </div>
@@ -43,7 +43,7 @@ export default {
       <h1 class="text-center font-bold">{{ ownerData['propietario'] }}</h1>
     </div>
     <div class="w-full">
-      <form class="bg-white px-8 pt-6 pb-8 mb-4">
+      <form class="bg-white pt-3">
         <div class="mb-4">
           <label class="block text-gray-700 text-sm mb-2" for="username">
             Campo Deportivo
@@ -76,11 +76,11 @@ export default {
           </button>
         </div>
       </form>
-      <p class="text-center text-gray-500 text-xs">
+      <p class="mt-3 text-center text-gray-500 text-xs">
         &copy;2023. All rights reserved.
       </p>
     </div>
-  </div>
+</div>
   <!--
   <div v-else class="w-full py-20">
     <p class="text-center text-gray-500 text-xs">

@@ -4,7 +4,7 @@ const URL = VITE_API_APPSCRIPT;
 class ReservationService {
 
     /**
-     * Get all reservations filtered by data,
+     * Get all reservations filtered by data 'date',
      *
      * @param {object} data - The data object used to fetch
      * @returns {Promise<object>}
@@ -13,6 +13,23 @@ class ReservationService {
         const { date } = data; // {a:111, b:222}; Destructuring assignment
         const OPERATION = 'list-reservations';
         const THE_URL = URL + `?op=${OPERATION}&date=${date}`;
+
+        return fetch(THE_URL, { method: 'GET' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener los datos');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error(error);
+            throw error;
+        });
+    }
+
+    getByDateAndHour(date, startHourNumber) {
+        const OPERATION = 'list-reservations';
+        const THE_URL = URL + `?op=${OPERATION}&date=${date}&hour=${startHourNumber}`;
 
         return fetch(THE_URL, { method: 'GET' })
         .then(response => {
