@@ -108,7 +108,7 @@ export default {
         <div class="w-full">
             <form class="bg-white">
                 <div class="mb-0">
-                    <textarea cols="30" rows="2" disabled
+                    <textarea cols="30" rows="8" disabled
                         class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >====== Reserva =======
 * Total:                  S/ {{ calculateReservationCost(reservationData['start-time'], calcHoras) }}
