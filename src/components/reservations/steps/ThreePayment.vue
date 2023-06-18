@@ -95,7 +95,9 @@ export default {
 <template>
     <div class="px-3 pt-6">
         <div class="w-full">
-            <h1 class="text-center font-bold text-xl mb-4">Pagar en (<span id="clock">00:00</span>)</h1>
+            <h1 class="text-center font-bold text-xl mb-4">
+                Pagar en: <span id="clock" class="text-red-500">00:00</span>
+            </h1>
         </div>
         <div class="w-full">
             <div class="mb-2 flex place-content-center text-xs">

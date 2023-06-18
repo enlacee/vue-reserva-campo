@@ -25,8 +25,14 @@ export default {
         reservationData() {
             return this.$store.getters.reservationData;
         },
+        rangeHours() {
+            return Array.from({ length: 24 }, (_, index) => index);
+        }
     },
     methods: {
+        formatHour(hour) {
+            return hour.toString().padStart(2, '0') + ':00';
+        },
         /**
          * Open modal just to the trigger clicked
          *
@@ -41,6 +47,7 @@ export default {
          * @return void/booleam
          **/
         bookAndPay: function(event){
+            // this.$emit('changeCurrentComponent', 'ThreePayment');
             const $fullName = document.getElementById('full-name');
             if ($fullName.value.length > 0) {
                 this.$store.commit("setReservationFullName", $fullName.value.toUpperCase()); // save in STORE
@@ -209,19 +216,20 @@ export default {
 }
 </script>
 <template>
-    <div class="px-8 pt-6 pb-8 mb-4">
+    <div class="px-3 pt-6">
         <div v-show="isLoading">Cargando...</div>
         <div v-show="!isLoading">
             <div class="w-full">
                 <h1 class="text-center font-bold text-xl mb-6">Seleccione la hora(s) disponible(s) [24horas]</h1>
             </div>
             <div class="flex-auto" id="button-container">
-                <button v-for="n in 24" :disabled="isDisabledThisHour(n)"
+                <button v-for="n in rangeHours" :key="n" :disabled="isDisabledThisHour(n)"
                     :id="`button-${n}`"
                     class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1 border border-gray-400 shadow"
                     @click="selectHour($event)"
                     :aria-label="n">
                     {{ n }}
+                    <!-- {{ formatHour(n) }} -->
                 </button>
             </div>
             <p>&nbsp;</p>

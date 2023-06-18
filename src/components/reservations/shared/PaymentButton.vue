@@ -18,28 +18,47 @@
 
             const processAjax = () => {
                 processing.value = true;
-                message.value = 'error'; //'success';
-                // this.processing = true;
 
                 console.log('this.dataObjects', props.dataObject);
-                const { date, 'start-time': startHour, durationInHours } = props.dataObject;
+                const {
+                    date,
+                    'start-time': hour,
+                    durationInHours:durationHour,
+                    'full-name': yapename,
+                    price: yapepayment
+                } = props.dataObject;
 
-                if (date && startHour && durationInHours) {
+                if (date && hour && durationHour && yapename, yapepayment) {
                     console.log(' === listo para hacer la consulta si existe Disponibilidad para reserva');
                     console.log('date', date);
-                    console.log('startHour', startHour);
-                    console.log('durationInHours', durationInHours);
-                    // ReservationService.getByDateAndHour(date, startHour)
-                    // .then((data) => {
+                    console.log('startHour', hour);
+                    console.log('durationInHours', durationHour);
+                    console.log('yapeName', yapename);
+                    console.log('yapePayment', yapepayment);
 
-
-                    //     console.log('data', data);
-                    //     this.processing = false;
-                    // })
-                    // .catch((error) => {
-                    //     console.error(error);
-                    //     this.processing = false;
-                    // });
+                    const params = {
+                        date,
+                        hour,
+                        durationHour,
+                        flag: 'try-to-reserve',
+                        yapename,
+                        yapepayment
+                    };
+                    ReservationService.makeTheReservation(params)
+                    .then((data) => {
+                        if (data.length === 1 && typeof data[0] === 'object' && data[0].ok === true) {
+                            message.value = 'success';
+                        } else {
+                            message.value = 'error';
+                        }
+                        console.log('data', data);
+                        // processing.value = false;
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        // processing.value = false;
+                        message.value = 'error';
+                    });
                 }
             };
 

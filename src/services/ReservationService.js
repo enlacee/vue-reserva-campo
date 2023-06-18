@@ -1,5 +1,5 @@
 const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
-const URL = VITE_API_APPSCRIPT;
+const BASE_URL = VITE_API_APPSCRIPT;
 
 class ReservationService {
 
@@ -12,26 +12,9 @@ class ReservationService {
     get(data = {}) {
         const { date } = data; // {a:111, b:222}; Destructuring assignment
         const OPERATION = 'list-reservations';
-        const THE_URL = URL + `?op=${OPERATION}&date=${date}`;
+        const url = BASE_URL + `?op=${OPERATION}&date=${date}`;
 
-        return fetch(THE_URL, { method: 'GET' })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al obtener los datos');
-            }
-            return response.json();
-        })
-        .catch(error => {
-            console.error(error);
-            throw error;
-        });
-    }
-
-    getByDateAndHour(date, startHourNumber) {
-        const OPERATION = 'list-reservations';
-        const THE_URL = URL + `?op=${OPERATION}&date=${date}&hour=${startHourNumber}`;
-
-        return fetch(THE_URL, { method: 'GET' })
+        return fetch(url, { method: 'GET' })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
@@ -47,22 +30,19 @@ class ReservationService {
     /**
      * Register a new reservation
      *
-     * @param {object} request - The data object used to fetch
+     * @param {object} params - The data
      * @returns {Promise<object>}
      */
-    add(request = {}) {
-        const { date } = request;
-        const OPERATION = 'register-reservation';
-        const params = {
-            op: OPERATION,
-            date: date
-        };
-        const options = {
-            method: 'POST',
-            body: JSON.stringify( params )
-        };
+    makeTheReservation(params) {
+        const OPERATION = 'list-reservations';
+        const queryParameters = Object.assign({ op: OPERATION}, params);
+        const url = `${BASE_URL}?${Object.entries(queryParameters)
+            .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+            .join('&')}`;
 
-        return fetch(URL, options)
+        console.log('url', url);
+
+        return fetch(url, { method: 'GET' })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
