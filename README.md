@@ -32,4 +32,14 @@ npm run build
 
 ### Preview v1
 
+Release 2023-06-18
+
+* Payment with yape
+* API building with appScript
+* Validation of name by DNI
+* Syncing the 3 components
+  * appScript          [backend]
+  * application web    [Frontend]
+  * application mobile [Frontend]
+
 ![v1 reserva de campo](docs/v1-rentando.blogspot.com-iphone-se.png)
