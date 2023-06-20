@@ -77,6 +77,7 @@ let getFullNameFromAPI = function(event){
                     <div class="p-5 space-y-5">
                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-sm text-red-700">
                             Nombre completo del titular de la cuenta <strong>YAPE (unico metodo de pago)</strong></p>
+                        <span class="text-xs text-gray-500">Respetamos tu privacidad y no almacenamos tus datos personales.</span>
                         <div>
                             <form class="bg-white" action="javascript:void(0);">
                                 <div class="flex flex-wrap">

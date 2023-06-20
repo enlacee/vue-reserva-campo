@@ -6,6 +6,7 @@ const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
 const store = createStore({
     state() {
         return {
+            isLoading: true,
             owner: {},
             reservation: {
                 'full-name': null,
@@ -16,6 +17,9 @@ const store = createStore({
         }
     },
     mutations: {
+        setIsLoading(state, status) {
+            state.isLoading = status;
+        },
         setOwner(state, payload) {
             state.owner = payload;
         },
@@ -48,6 +52,7 @@ const store = createStore({
                 try {
                     let theData = JSON.parse(localStorage.getItem('owner'));
                     context.commit('setOwner', theData);
+                    context.commit('setIsLoading', false);
                 } catch(e) {
                     console.log(e);
                     localStorage.removeItem('owner');
@@ -63,6 +68,7 @@ const store = createStore({
 
                         const parsed = JSON.stringify(theData);
                         localStorage.setItem('owner', parsed);
+                        context.commit('setIsLoading', false);
                     })
                     .catch(error => console.error(error));
                 } catch (err) {

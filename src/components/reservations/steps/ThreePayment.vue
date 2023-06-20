@@ -21,7 +21,7 @@ export default {
             var el = document.getElementById(element);
             // if the time is 0 then end the counter
             if (time <= 0) {
-                alert("se acabo su tiempo! [redirect]");
+                alert("se acabo su tiempo!"); // redirect to home
                 clearInterval(interval);
                 // window.location.href = '/';
                 return;

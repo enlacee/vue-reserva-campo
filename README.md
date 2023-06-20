@@ -27,3 +27,9 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+
+### Preview v1
+
+![v1 reserva de campo](docs/v1-rentando.blogspot.com-iphone-se.png)

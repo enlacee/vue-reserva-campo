@@ -57,6 +57,12 @@ export default {
 
             if (this.hours.length > 0) {
                 this.openModalCheckDniModal();
+            } else {
+                const $h1 = document.getElementsByTagName('h1')[0];
+                $h1.classList.add('text-red-500');
+                setTimeout(() => {
+                    $h1.classList.remove('text-red-500')
+                }, "1000");
             }
         },
         selectHour: function(event){
@@ -153,7 +159,6 @@ export default {
                 let dateFormatedYYYMD = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
                 dateFormatedYYYMD = helperFormatDateYYYMMDD(dateFormatedYYYMD);
                 let currentHour = today.getHours();
-                // console.log(this.reservationData['date'], dateFormatedYYYMD, number, currentHour);
                 if (this.reservationData['date'] === dateFormatedYYYMD && currentHour >= number) {
                     disabledFlag = true;
                 }
@@ -220,12 +225,13 @@ export default {
         <div v-show="isLoading">Cargando...</div>
         <div v-show="!isLoading">
             <div class="w-full">
-                <h1 class="text-center font-bold text-xl mb-6">Seleccione la hora(s) disponible(s) [24horas]</h1>
+                <h1 class="text-center font-bold text-xl mb-6">Seleccione las horas disponibles (formato de 24 horas).</h1>
             </div>
-            <div class="flex-auto" id="button-container">
+            <div class="text-center" id="button-container">
                 <button v-for="n in rangeHours" :key="n" :disabled="isDisabledThisHour(n)"
                     :id="`button-${n}`"
-                    class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1 border border-gray-400 shadow"
+                    class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1"
+                    :class="`${isDisabledThisHour(n)? 'false' : 'shadow'}`"
                     @click="selectHour($event)"
                     :aria-label="n">
                     {{ n }}
@@ -254,7 +260,7 @@ export default {
 </template>
 <style scoped>
     button[disabled]{
-        opacity: 0.5;
+        opacity: 0.1;
     }
     .selected{
         background-color: #ccc;
