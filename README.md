@@ -28,7 +28,11 @@ npm run dev
 npm run build
 ```
 
+### test
 
+```sh
+npm run test
+```
 
 ### Preview v1
 
