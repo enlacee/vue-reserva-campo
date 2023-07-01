@@ -81,7 +81,7 @@ export default {
                 </div>
             </form>
             <p class="mt-3 text-center text-gray-500 text-xs">
-                &copy;2023. All rights reserved.
+                &copy;2023. All rights reserved. v1.1[2023-06-20]
             </p>
             </div>
         </div>
