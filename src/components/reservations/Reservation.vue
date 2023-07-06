@@ -7,12 +7,18 @@
  **/
 import PriceTable from '../reservations/shared/PriceTable.vue';
 
+const VITE_APP_AUTHOR_NAME = import.meta.env.VITE_APP_AUTHOR_NAME;
+const VITE_APP_AUTHOR_URL = import.meta.env.VITE_APP_AUTHOR_URL;
+
 export default {
     components: {
         PriceTable
     },
     data() {
-        return {}
+        return {
+            authorName: VITE_APP_AUTHOR_NAME,
+            authorURL: VITE_APP_AUTHOR_URL
+        }
     },
     mounted() {
         this.$store.dispatch('refreshOwnerData');
@@ -82,6 +88,9 @@ export default {
             </form>
             <p class="mt-3 text-center text-gray-500 text-xs">
                 &copy;2023. All rights reserved. v1.1[2023-06-20]
+            </p>
+            <p class="text-center text-gray-500 text-xs">
+                by <a :href="authorURL" target="_blank" class="text-sm text-blue-700">{{ authorName }}</a>
             </p>
             </div>
         </div>
