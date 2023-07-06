@@ -87,10 +87,10 @@ export default {
                 </div>
             </form>
             <p class="mt-3 text-center text-gray-500 text-xs">
-                &copy;2023. All rights reserved. v1.1[2023-06-20]
+                &copy;2023. All rights reserved. v1.1[2023-06-20] by <a :href="authorURL">{{ authorName }}</a>
             </p>
             <p class="text-center text-gray-500 text-xs">
-                by <a :href="authorURL" target="_blank" class="text-sm text-blue-700">{{ authorName }}</a>
+                <a :href="authorURL" target="_blank" class="text-sm text-blue-700">¡Cuenta demo gratis!</a>
             </p>
             </div>
         </div>
