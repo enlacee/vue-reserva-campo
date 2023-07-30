@@ -48,14 +48,14 @@ const store = createStore({
         refreshOwnerData(context) {
             const URL = VITE_API_APPSCRIPT;
             const listURL = URL + '?op=list';
-            if (localStorage.getItem('owner')) {
+            if (sessionStorage.getItem('owner')) {
                 try {
-                    let theData = JSON.parse(localStorage.getItem('owner'));
+                    let theData = JSON.parse(sessionStorage.getItem('owner'));
                     context.commit('setOwner', theData);
                     context.commit('setIsLoading', false);
                 } catch(e) {
                     console.log(e);
-                    localStorage.removeItem('owner');
+                    sessionStorage.removeItem('owner');
                 }
             } else {
                 try {
@@ -67,7 +67,7 @@ const store = createStore({
                         context.commit('setOwner', theData);
 
                         const parsed = JSON.stringify(theData);
-                        localStorage.setItem('owner', parsed);
+                        sessionStorage.setItem('owner', parsed);
                         context.commit('setIsLoading', false);
                     })
                     .catch(error => console.error(error));

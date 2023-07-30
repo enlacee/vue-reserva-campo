@@ -87,7 +87,7 @@ export default {
                 </div>
             </form>
             <p class="mt-3 text-center text-gray-500 text-xs">
-                &copy;2023. All rights reserved. v1.1[2023-06-20] by <a :href="authorURL">{{ authorName }}</a>
+                &copy;2023. All rights reserved. v1.1[2023-06-20] by <a target="_blank" :href="authorURL">{{ authorName }}</a>
             </p>
             <p class="text-center text-gray-500 text-xs">
                 <a :href="authorURL" target="_blank" class="text-sm text-blue-700">¡Cuenta demo gratis!</a>
