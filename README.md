@@ -34,16 +34,16 @@ npm run build
 npm run test
 ```
 
-## Instalación mediante Docker
+## Installation by Docker
 
 1.- You must be installed docker in your system.  
-2.- Clona este repositorio en tu máquina local.  
+2.- Clone this repository to your local machine.  
 
 ```bash
     git clone https://github.com/tu_usuario/repositorio.git
 ```
 
-3.- Navega a la carpeta del proyecto.
+3.- Navigate to the project folder.
 
 ```bash
     cd repositorio
@@ -55,7 +55,7 @@ npm run test
     docker-compose up --build
 ```
 
-Opcional
+Optional
 
 ```bash
     docker-compose stop
