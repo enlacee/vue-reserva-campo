@@ -1,0 +1,9 @@
+version: '3'
+services:
+  frontend:
+    build: ./
+    volumes:
+      - ./:/usr/app
+    ports:
+      - 4000:4000
+    command: sh -c "npm install && npm run dev"
