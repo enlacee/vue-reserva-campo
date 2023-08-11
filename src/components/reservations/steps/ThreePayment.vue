@@ -1,12 +1,14 @@
 <script>
 import PriceTable from '../shared/PriceTable.vue';
 import PaymentButton from '../shared/PaymentButton.vue';
+import PaymentAccordion from '../shared/PaymentAccordion.vue';
 
 export default {
   components: {
     PriceTable,
-    PaymentButton
-  },
+    PaymentButton,
+    PaymentAccordion
+},
   data() {
     return {}
   },
@@ -121,13 +123,17 @@ export default {
                 </div>
                 <div class="mb-1 flex place-content-center">
                     <label>
-                        Metodo de pago YAPE: {{ownerData['numero']}} <br/>
+                        <!-- Metodo de pago YAPE: {{ownerData['numero']}} <br/> -->
                         <!-- <span class="font-bold">Pago minimo: s/ 30.00</span> -->
                     </label>
                 </div>
-
+                <PaymentAccordion :dataObject="dataObjectForPayment" :ownerData="ownerData"></PaymentAccordion>
                 <PaymentButton :dataObject="dataObjectForPayment"></PaymentButton>
-
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
                 <!-- <div class="img-yape-container flex place-content-center">
                     <img class="py-2" :src="ownerData['imagen-qr-yape']"/>
                 </div> -->

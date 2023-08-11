@@ -225,7 +225,7 @@ export default {
         <div v-show="isLoading">Cargando...</div>
         <div v-show="!isLoading">
             <div class="w-full">
-                <h1 class="text-center font-bold text-xl mb-6">Seleccione las horas disponibles (formato de 24 horas).</h1>
+                <h1 class="text-center font-bold text-xl mb-6">Seleccione la hora a alquilar</h1>
             </div>
             <div class="text-center" id="button-container">
                 <button v-for="n in rangeHours" :key="n" :disabled="isDisabledThisHour(n)"
