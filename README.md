@@ -62,6 +62,13 @@ Optional
     docker-compose start
 ```
 
+Optional 2 : useful for access to system
+
+```bash
+    docker ps # to know the ID-CONTAINER
+    docker exec -it <ID-CONTAINER> sh
+````
+
 ### Preview v1
 
 Release 2023-06-18

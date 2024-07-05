@@ -72,7 +72,20 @@ export default {
     selectDay(day) {
       // set and emit selected date
       this.selectedDate = new Date(this.selectedYear, this.selectedMonth, day);
-    //   this.$emit("dateSelected", this.selectedDate);
+      //   this.$emit("dateSelected", this.selectedDate);
+
+
+      // Obtener la referencia del botón clicado
+      const selectedButton = this.$refs['day-' + day]?.[0];
+      
+      // Remover la clase 'selected' de todos los botones
+      const buttons = this.$refs.vcalContainer.querySelectorAll('.vcal-day');
+      buttons.forEach(button => {
+        button.classList.remove('selected');
+      });
+
+      // Agregar la clase 'selected' al botón clicado
+      selectedButton?.parentNode?.classList.add('selected');
     }
   },
   mounted() {
@@ -95,14 +108,16 @@ export default {
     <div class="w-full">
       <h1 class="text-center font-bold text-xl mb-6">Calendario</h1>
     </div>
-    <div class="vcal">
+    <div class="vcal" ref="vcalContainer">
       <div class="vcal-nav" aria-label="Calendar Navigation">
-        <button
+        
+        <!-- <button
           data-direction="prev"
           @click="prevMonth()"
           :aria-disabled="isCurrentMonth"
           title="previous month"
-        >&larr;</button>
+        >&larr;</button> -->
+
         <div class="vcal-nav--title">
           <select v-model="selectedMonth" disabled>
             <option v-for="(name, index) in monthNames" :value="index" :selected="selectedMonth == index ? 'selected' : false" :disabled="isCurrentYear && index < today.getMonth()">{{ name }}</option>
@@ -111,7 +126,7 @@ export default {
             <option v-for="year in years" :value="year" :selected="year == selectedYear ? 'selected' : false">{{ year }}</option>
           </select>
         </div>
-        <button data-direction="next" @click="nextMonth()" title="next month">&rarr;</button>
+        <!-- <button data-direction="next" @click="nextMonth()" title="next month">&rarr;</button> -->
       </div>
       <div class="vcal-weekdays">
         <div v-for="name in dayNames">{{ name }}</div>
@@ -122,7 +137,7 @@ export default {
           class="vcal-day"
           :class="{
             blank: !num,
-            today: isCurrentMonth && num && num == today.getDate()
+            selected: isCurrentMonth && num && num == today.getDate()
           }"
         >
           <button
@@ -132,6 +147,7 @@ export default {
 selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).toLocaleDateString() ? 'date' : false"
             :title="new Date(selectedYear, selectedMonth, num).toLocaleDateString('en-us',{weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})"
             @click="selectDay(num)"
+            :ref="'day-' + num"
           >
             {{ num }}
           </button>
@@ -196,6 +212,9 @@ selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).
   }
 }
 
+/**
+ * header selector del mes y anio 
+**/
 .vcal-nav {
   text-align: center;
   display: flex;
@@ -249,6 +268,9 @@ selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).
   overflow: hidden;
   &.today {
     box-shadow: inset 0 0 0 2px #ccc;
+  }
+  &.selected {
+    box-shadow: inset 0 0 0 2px black;
   }
   button {
     transition: background-color .25s, color .25s;
