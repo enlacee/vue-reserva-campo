@@ -177,7 +177,7 @@ selectedDate.toLocaleDateString() == new Date(selectedYear, selectedMonth, num).
         </div>
       </div>
       <div class="vcal-details">
-        <span data-selected="title" v-if="selectedDate">Fecha Seleccionada: </span>
+        <span data-selected="title" v-if="selectedDate">Fecha: </span>
         <span data-selected="date" v-if="selectedDate">
           {{ selectedDate.toLocaleDateString('es-pe', {weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'}) }}
         </span>

@@ -67,7 +67,7 @@ let getFullNameFromAPI = function(event){
                     <!-- Modal header -->
                     <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
-                            Antes de reservar y pagar
+                            Formulario de Verificación YAPE
                         </h3>
                         <button id="closeButton" data-modal-hide="modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
@@ -75,13 +75,15 @@ let getFullNameFromAPI = function(event){
                     </div>
                     <!-- Modal body -->
                     <div class="p-5 space-y-5">
-                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 text-sm text-red-700">
-                            Nombre completo del titular de la cuenta <strong>YAPE (unico metodo de pago)</strong></p>
-                        <span class="text-xs text-gray-500">Respetamos tu privacidad y no almacenamos tus datos personales.</span>
+                        <!-- <h2 class="text-red-700">Antes de Reservar y Pagar: <strong>Información Importante</strong></h2> -->
+                        <p class="text-red-700 dark:text-gray-400 text-sm">Por favor, ingrese su nombre completo tal como aparece en su DNI para verificar su cuenta YAPE.</p>
+                        
+                        <span class="text-xs text-gray-500">Si no ingresa el nombre correcto, no podremos verificar el pago y no se podrá realizar la reserva automáticamente. Su dinero quedará registrado, pero no se efectuará ninguna reserva.</span>
+                        <!-- <span class="text-xs text-gray-500">Respetamos tu privacidad y no almacenamos tus datos personales.</span> -->
                         <div>
                             <form class="bg-white" action="javascript:void(0);">
                                 <div class="flex flex-wrap">
-                                    <div class="w-full_ sm:w-2/3" style="width:69%; padding-right:1%">
+                                    <!-- <div class="w-full_ sm:w-2/3" style="width:69%; padding-right:1%">
                                         <label class="block text-gray-700 text-sm" for="dni">DNI</label>
                                         <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight "
                                             autofocus
@@ -94,15 +96,16 @@ let getFullNameFromAPI = function(event){
                                     </div>
                                     <div class="w-full_ sm:w-1/3" style="width: 30%;">
                                         <label class="block text-gray-700 text-sm">&nbsp;</label>
-                                        <button style="padding: 7.5px; 8px"
+                                        <button style="padding: 7.5px;"
                                             class="bg-black text-white py-2 px-4 focus:outline-none focus:shadow-outline w-full" 
                                             @click="getFullNameFromAPI()"
                                             type="button">Validar</button>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="mt-1">
-                                    <input class="bg-gray-200 uppercase appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
-                                        id="full-name" type="text" placeholder="" readonly/>
+                                    <label class="block text-gray-700 text-sm" for="full-name">Nombres y Apellidos (según DNI)</label>
+                                    <input class="bg-gray-200_ uppercase appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
+                                        id="full-name" type="text" placeholder="Ejemplo: Juan Carlos Pérez Gómez"/>
                                 </div>
                             </form>
 

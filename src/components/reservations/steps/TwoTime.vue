@@ -263,11 +263,10 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
-    button{
-        margin: 5px 0;
-        padding: 12px;
-    }
+}
+#button-container > button{
+    margin: 5px 0;
+    padding: 14px;
 }
 
 button[disabled]{
