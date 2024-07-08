@@ -225,17 +225,17 @@ export default {
         <div v-show="isLoading">Cargando...</div>
         <div v-show="!isLoading">
             <div class="w-full">
-                <h1 class="text-center font-bold text-xl mb-6">Seleccione la hora a alquilar</h1>
+                <h1 class="text-center font-bold text-xl mb-6">Selecciona Horas Disponibles</h1>
             </div>
             <div class="text-center" id="button-container">
                 <button v-for="n in rangeHours" :key="n" :disabled="isDisabledThisHour(n)"
                     :id="`button-${n}`"
-                    class="bg-white text-black py-2 px-4 border-black border w-1/5 mr-1 mb-1"
+                    class="bg-white text-black border border-black"
                     :class="`${isDisabledThisHour(n)? 'false' : 'shadow'}`"
                     @click="selectHour($event)"
                     :aria-label="n">
-                    {{ n }}
-                    <!-- {{ formatHour(n) }} -->
+                    <!-- {{ n }} -->
+                    {{ formatHour(n) }}
                 </button>
             </div>
             <p>&nbsp;</p>
@@ -259,10 +259,21 @@ export default {
     </div>
 </template>
 <style scoped>
-    button[disabled]{
-        opacity: 0.1;
+#button-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    button{
+        margin: 5px 0;
+        padding: 12px;
     }
-    .selected{
-        background-color: #ccc;
-    }
+}
+
+button[disabled]{
+    opacity: 0.1;
+}
+.selected{
+    background-color: #4caf50;
+}
 </style>
