@@ -3,6 +3,9 @@ import checkDniModal from '../shared/checkDniModal.vue';
 import { helperFormatDateYYYMMDD  } from '@/utils/validate';
 import ReservationService from '@/services/ReservationService';
 
+// helper
+import { get24HoursFormatFromNumber  } from '@/utils/helper';
+
 export default {
     emits: ['changeCurrentComponent'],
     components: {
@@ -31,7 +34,7 @@ export default {
     },
     methods: {
         formatHour(hour) {
-            return hour.toString().padStart(2, '0') + ':00';
+            return get24HoursFormatFromNumber(hour);
         },
         /**
          * Open modal just to the trigger clicked
@@ -221,7 +224,7 @@ export default {
 }
 </script>
 <template>
-    <div class="px-3 pt-6">
+    <div class="px-3 pt-3">
         <div v-show="isLoading">Cargando...</div>
         <div v-show="!isLoading">
             <div class="w-full">

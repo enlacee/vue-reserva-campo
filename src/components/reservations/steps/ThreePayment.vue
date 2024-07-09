@@ -1,11 +1,12 @@
 <script>
-import PriceTable from '../shared/PriceTable.vue';
 import PaymentButton from '../shared/PaymentButton.vue';
 import PaymentAccordion from '../shared/PaymentAccordion.vue';
 
+// helper
+import { get24HoursFormatFromNumber  } from '@/utils/helper';
+
 export default {
   components: {
-    PriceTable,
     PaymentButton,
     PaymentAccordion
 },
@@ -79,6 +80,15 @@ export default {
         let result = this.reservationData['end-time'] - this.reservationData['start-time'];
         return Math.abs(result);
     },
+    calcHorasTexto() {
+        return this.calcHoras === 1 ? 'hora' : 'horas';
+    },
+    printStartDate() {
+        return get24HoursFormatFromNumber(this.reservationData['start-time']);
+    },
+    printDuration() {
+        return this.calcHoras + ' ' + this.calcHorasTexto;
+    },
     dataObjectForPayment() {
         let reservationData = this.reservationData;
         let durationInHours = this.calcHoras;
@@ -95,50 +105,41 @@ export default {
 }
 </script>
 <template>
-    <div class="px-3 pt-6">
+    <div class="px-3 pt-3">
         <div class="w-full">
-            <h1 class="text-center font-bold text-xl mb-4">
-                Pagar en: <span id="clock" class="text-red-500">00:00</span>
+            <h1 class="text-center text-xl mb-2 text-red-600">
+                Pagar en: <span id="clock" class="">00:00</span>
             </h1>
         </div>
-        <div class="w-full">
-            <div class="mb-2 flex place-content-center text-xs">
-                <PriceTable />
+
+        <div class="w-full bg-gray-100 p-4 mb-3">
+            <h2 class="font-bold text-xl mb-2">Resumen de Reserva</h2>
+
+            <div class="mb-0">
+                <p><strong>Total:</strong> S/ {{ calculateReservationCost(reservationData['start-time'], calcHoras) }}</p>
+                <p><strong>Reservado por:</strong> {{ reservationData['full-name'] }}</p>
+                <p><strong>Fecha:</strong> {{ reservationData['date'] }}</p>
+                <p><strong>Hora de inicio:</strong> {{ printStartDate }}</p>
+                <p><strong>Duración:</strong> {{ printDuration }}</p>
             </div>
+
         </div>
 
-        <div class="w-full">
-            <form class="bg-white">
-                <div class="mb-0">
-                    <textarea cols="30" rows="8" disabled
-                        class="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        >====== Reserva =======
-* Total:                  S/ {{ calculateReservationCost(reservationData['start-time'], calcHoras) }}
-=====================
-* Por:   {{ reservationData['full-name'] }}
-* Fecha:   {{ reservationData['date'] }}
-* Hora de inicio:   {{ reservationData['start-time'] }} horas
-* hora(s):   {{ calcHoras }}
-                    </textarea>
-                </div>
-                <div class="mb-1 flex place-content-center">
-                    <label>
-                        <!-- Metodo de pago YAPE: {{ownerData['numero']}} <br/> -->
-                        <!-- <span class="font-bold">Pago minimo: s/ 30.00</span> -->
-                    </label>
-                </div>
-                <PaymentAccordion :dataObject="dataObjectForPayment" :ownerData="ownerData"></PaymentAccordion>
-                <PaymentButton :dataObject="dataObjectForPayment"></PaymentButton>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-                <!-- <div class="img-yape-container flex place-content-center">
-                    <img class="py-2" :src="ownerData['imagen-qr-yape']"/>
-                </div> -->
-            </form>
+        <div class="w-full bg-gray-100 p-4">
+            <h2 class="font-bold text-xl mb-2">Pasos para Completar el Pago con Yape</h2>
+
+            <ol class="list-decimal ml-4">
+                <li>Abre la aplicación Yape en tu teléfono.</li>
+                <li>Selecciona la opción de <b>Yapear</b>.</li>
+                <li>Ingresa el número de teléfono: <b>{{ ownerData['numero'] }}</b> como destinatario del pago.</li>
+                <li>Ingrese el monto a pagar: <b>{{ dataObjectForPayment['price'] }}</b></li>
+                <li>Confirma la transacción y ¡listo! Tu pago se realizará de manera segura.</li>
+            </ol>
+            <!-- <PaymentAccordion :dataObject="dataObjectForPayment" :ownerData="ownerData"></PaymentAccordion> -->
         </div>
+
+        <PaymentButton :dataObject="dataObjectForPayment"></PaymentButton>
+        <br/>
     </div>
 </template>
 <style>

@@ -125,7 +125,7 @@ export default {
 };
 </script>
 <template>
-  <div id="theapp" class="px-3 pt-6">
+  <div id="theapp" class="px-3 pt-3">
     <div class="w-full">
       <h1 class="text-center font-bold text-xl mb-6">Calendario</h1>
     </div>

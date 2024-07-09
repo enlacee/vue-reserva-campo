@@ -43,7 +43,7 @@ export default {
   import ImageSoccerBall from '../base64images/ImageSoccerBall.vue'
 </script>
 <template>
-    <div class="px-3 pt-6">
+    <div class="px-3 pt-3">
         <div v-show="dataLoaded">Cargando...</div>
         <div v-show="!dataLoaded">
             <div class="flex place-content-center">
