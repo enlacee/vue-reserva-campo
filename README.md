@@ -49,6 +49,21 @@ npm run test
     cd repositorio
 ```
 
+3.1 Adding .env file with the next content
+
+
+    VITE_APP_TITLE="Reserva Total"
+    VITE_APP_AUTHOR_NAME="EscribeSoft"
+    VITE_APP_AUTHOR_URL="https://escribesoft.blogspot.com/"
+    VITE_API_APPSCRIPT="https://script.google.com/macros/s/xxxzzzz/exec"
+
+    # ANDROID VARIABLES
+    VITE_API_BASE_URL_APP="https://script.google.com/macros/s/aaaabbbb/exec"
+    # VITE_API_BASE_URL_WEB=""
+    VITE_BASE_URL_WEB="https://reservatotal.blogspot.com"
+    VITE_USER_DEMO_ID= "1720847377722-6667"
+
+
 4.- Execute the next command:
 
 ```bash
@@ -68,6 +83,9 @@ Optional 2 : useful for access to system
     docker ps # to know the ID-CONTAINER
     docker exec -it <ID-CONTAINER> sh
 ````
+
+
+
 
 ### Preview v1
 
