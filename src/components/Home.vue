@@ -1,5 +1,6 @@
 <script>
 import Reservation from '@/components/reservations/Reservation.vue';
+import UserVerification from '@/components/reservations/UserVerification.vue';
 import OneDate from '@/components/reservations/steps/OneDate.vue';
 import TwoTime from '@/components/reservations/steps/TwoTime.vue';
 import ThreePayment from '@/components/reservations/steps/ThreePayment.vue';
@@ -7,14 +8,15 @@ import ThreePayment from '@/components/reservations/steps/ThreePayment.vue';
 export default {
   components: {
     Reservation,
+    UserVerification,
     OneDate,
     TwoTime,
     ThreePayment
   },
   data() {
     return {
-      currentTab: 'Reservation',
-      tabs: ['Reservation', 'OneDate', 'TwoTime', 'ThreePayment']
+      currentTab: 'UserVerification',
+      tabs: ['UserVerification','Reservation', 'OneDate', 'TwoTime', 'ThreePayment']
     }
   },
   computed: {},
