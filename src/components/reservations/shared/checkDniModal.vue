@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
+import ImageDni from '@/components/base64images/ImageDni.vue'
 
 const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
 
@@ -67,7 +68,7 @@ let getFullNameFromAPI = function(event){
                     <!-- Modal header -->
                     <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
-                            Formulario de Verificación YAPE
+                            Verifica tu Yape
                         </h3>
                         <button id="closeButton" data-modal-hide="modal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
@@ -76,10 +77,18 @@ let getFullNameFromAPI = function(event){
                     <!-- Modal body -->
                     <div class="p-5 space-y-5">
                         <!-- <h2 class="text-red-700">Antes de Reservar y Pagar: <strong>Información Importante</strong></h2> -->
-                        <p class="text-red-700 dark:text-gray-400 text-sm">Por favor, ingrese su nombre completo tal como aparece en su DNI para verificar su cuenta YAPE.</p>
+                        <p class="text-red-700 dark:text-gray-400 text-xs">
+                            Para verificar tu cuenta Yape, ingresa tu nombre completo tal como aparece en tu DNI. Si el nombre no es correcto, no podremos verificar el pago ni realizar la reserva automáticamente.
+                        </p>
                         
-                        <span class="text-xs text-gray-500">Si no ingresa el nombre correcto, no podremos verificar el pago y no se podrá realizar la reserva automáticamente. Su dinero quedará registrado, pero no se efectuará ninguna reserva.</span>
+                        <!-- <span class="text-xs text-gray-500">
+                            Para verificar tu cuenta Yape, ingresa tu nombre completo tal como aparece en tu DNI. Si el nombre no es correcto, no podremos verificar el pago ni realizar la reserva automáticamente.
+                        </span> -->
                         <!-- <span class="text-xs text-gray-500">Respetamos tu privacidad y no almacenamos tus datos personales.</span> -->
+                        <div class="flex place-content-center">
+                            <ImageDni />
+                        </div>
+                        
                         <div>
                             <form class="bg-white" action="javascript:void(0);">
                                 <div class="flex flex-wrap">
@@ -105,7 +114,7 @@ let getFullNameFromAPI = function(event){
                                 <div class="mt-1">
                                     <label class="block text-gray-700 text-sm" for="full-name">Nombres y Apellidos (según DNI)</label>
                                     <input class="bg-gray-200_ uppercase appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
-                                        id="full-name" type="text" placeholder="Ejemplo: Juan Carlos Pérez Gómez"/>
+                                        id="full-name" type="text" placeholder="RENE ALEJANDRO CASTRO RAMOS"/>
                                 </div>
                             </form>
 

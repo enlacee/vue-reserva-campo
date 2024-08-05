@@ -10,10 +10,11 @@ class ReservationService {
      * @returns {Promise<object>}
      */
     get(data = {}) {
-        const { date } = data; // {a:111, b:222}; Destructuring assignment
+        const { date, googleSheetUrl } = data; // {a:111, b:222}; Destructuring assignment
         const OPERATION = 'list-reservations';
-        const url = BASE_URL + `?op=${OPERATION}&date=${date}`;
+        const url = BASE_URL + `?op=${OPERATION}&date=${date}&google-sheet-url=${googleSheetUrl}`;
 
+        console.log('url', url);
         return fetch(url, { method: 'GET' })
         .then(response => {
             if (!response.ok) {
@@ -34,7 +35,7 @@ class ReservationService {
      * @returns {Promise<object>}
      */
     makeTheReservation(params) {
-        const OPERATION = 'list-reservations';
+        const OPERATION = 'make-reservations';
         const queryParameters = Object.assign({ op: OPERATION}, params);
         const url = `${BASE_URL}?${Object.entries(queryParameters)
             .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)

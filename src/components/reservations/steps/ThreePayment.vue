@@ -96,7 +96,8 @@ export default {
         let paymentData = {
             ...reservationData,
             durationInHours,
-            price
+            price,
+            googleSheetUrl: this.ownerData['google-sheet-url']
         };
 
         return paymentData;
@@ -125,8 +126,8 @@ export default {
 
         </div>
 
-        <div class="w-full bg-gray-100 p-4">
-            <h2 class="font-bold text-xl mb-2">Pasos para Completar el Pago con Yape</h2>
+        <div class="w-full bg-gray-100 p-4 text-xs">
+            <h3 class="font-bold mb-2">Pasos para Completar el Pago con Yape</h3>
 
             <ol class="list-decimal ml-4">
                 <li>Abre la aplicación Yape en tu teléfono.</li>

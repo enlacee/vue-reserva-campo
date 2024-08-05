@@ -1,7 +1,7 @@
  
 <script>
 import UserService from '@/services/UserService';
-const VITE_USER_DEMO_ID = import.meta.env.VITE_USER_DEMO_ID;
+import { Browser  } from '@/utils/helper';
   
 export default {
     data() {
@@ -16,22 +16,48 @@ export default {
     //   this.refreshOwnerData();
     },
     methods: {
+
+        /**
+         * Check if exist the user
+         * if exist create a session storage for save data
+         * 
+         * @param userId 
+         *
+         * @return void
+         */
         async checkUserExistence(userId) {
-            this.loading = true;
-            try {
-                // Llamada al servicio para verificar la existencia del usuario
-                const userData = await UserService.getById(userId);
-                console.log('userData', userData);
-                this.userExists = !!userData.data; // Si userData no es null o undefined, el usuario existe
-                console.log('this.userExists', this.userExists);
-                if (this.userExists === true) { // usuario exite
-                    console.log("usuario existe " + userId);
-                    this.redirectToComponent();
+
+            const SESSION_OWNER_ID = `owner-${userId}`;
+            if (sessionStorage.getItem(SESSION_OWNER_ID)) {
+                try {
+                    let theData = JSON.parse(sessionStorage.getItem(SESSION_OWNER_ID));
+                    this.userExists = !!theData;
+                } catch(e) {
+                    console.log(e);
+                    sessionStorage.removeItem(SESSION_OWNER_ID);
                 }
-            } catch (error) {
-                console.error('Error al verificar la existencia del usuario:', error);
-            } finally {
-                this.loading = false;
+            } else {
+                this.loading = true;
+                try {
+                    const userData = await UserService.getById(userId);
+                    console.log('userData', userData);
+                    this.userExists = !!userData.data; // Si userData no es null o undefined, el usuario existe
+
+                    const parsed = JSON.stringify(userData.data);
+                    sessionStorage.setItem(SESSION_OWNER_ID, parsed);
+                } catch (error) {
+                    console.error('Error al verificar la existencia del usuario:', error);
+                } finally {
+                    this.loading = false;
+                }
+            }
+
+            /**
+             * redirect to next component
+             */
+            if (this.userExists === true) {
+                console.log("usuario existe " + userId);
+                this.redirectToComponent();
             }
         },
 
@@ -47,19 +73,10 @@ export default {
     created() {
         console.log("Componente UserVerification.vue creado!");
         const queryString = window.location.search;
-
-        // Parsear la cadena de consulta para obtener los parámetros
         const urlParams = new URLSearchParams(queryString);
+        this.userId = Browser.getIdFromUrl();
 
-        // Obtener el valor del parámetro 'id'
-        this.userId = urlParams.get('id');
-
-        if (typeof this.userId === "string" && this.userId.length === 0 || this.userId === null) {
-            // carga usuario demo default
-            this.checkUserExistence(VITE_USER_DEMO_ID);
-        } else {
-            this.checkUserExistence(this.userId);
-        }
+        this.checkUserExistence(this.userId);
     },
 }
 </script>

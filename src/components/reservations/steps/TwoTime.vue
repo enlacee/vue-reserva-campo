@@ -25,6 +25,9 @@ export default {
         this.fetchDataReservations();
     },
     computed: {
+        ownerData() {
+            return this.$store.getters.ownerData;
+        },
         reservationData() {
             return this.$store.getters.reservationData;
         },
@@ -174,7 +177,10 @@ export default {
          */
         fetchDataReservations(){
             let that = this;
-            let params = { date: this.reservationData['date'] };
+            let params = { 
+                date: this.reservationData['date'],
+                googleSheetUrl: this.ownerData['google-sheet-url']
+            };
 
             ReservationService.get(params)
                 .then((data) => {

@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-
-const VITE_API_APPSCRIPT = import.meta.env.VITE_API_APPSCRIPT;
+// helper
+import { Browser  } from '@/utils/helper';
 
 // Create a new store instance
 const store = createStore({
@@ -46,33 +46,20 @@ const store = createStore({
     },
     actions: {
         refreshOwnerData(context) {
-            const URL = VITE_API_APPSCRIPT;
-            const listURL = URL + '?op=list';
-            if (sessionStorage.getItem('owner')) {
+
+            /**
+             * here just load the data in store (vuex).
+             * it's was saved in sessionstorage for UserVerification Componet
+             */
+            const SESSION_OWNER_ID = 'owner-' + Browser.getIdFromUrl();
+            if (sessionStorage.getItem(SESSION_OWNER_ID)) {
                 try {
-                    let theData = JSON.parse(sessionStorage.getItem('owner'));
+                    let theData = JSON.parse(sessionStorage.getItem(SESSION_OWNER_ID));
                     context.commit('setOwner', theData);
                     context.commit('setIsLoading', false);
                 } catch(e) {
                     console.log(e);
                     sessionStorage.removeItem('owner');
-                }
-            } else {
-                try {
-                fetch(listURL, { method: 'GET' })
-                    .then(response => response.json())
-                    .then((data) => {
-                        console.log('response', data, data[0]);
-                        let theData = data[0];
-                        context.commit('setOwner', theData);
-
-                        const parsed = JSON.stringify(theData);
-                        sessionStorage.setItem('owner', parsed);
-                        context.commit('setIsLoading', false);
-                    })
-                    .catch(error => console.error(error));
-                } catch (err) {
-                    console.log(err)
                 }
             }
         }
