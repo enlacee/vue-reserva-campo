@@ -84,7 +84,7 @@ Optional 2 : useful for access to system
     docker exec -it <ID-CONTAINER> sh
 ````
 
-### v1
+### v1 [link](https://rentando.blogspot.com/)
 
 Release 2023-06-18
 
@@ -99,7 +99,7 @@ Release 2023-06-18
 ![v1 reserva de campo](docs/v1-rentando.blogspot.com-iphone-se.png)
 
 
-### v2
+### v2 [link](https://reservatotal.blogspot.com/)
 
 Release 2024-06-20
 
