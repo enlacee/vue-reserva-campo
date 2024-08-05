@@ -1,6 +1,6 @@
-# vue-reserva-campo
+# Reserva Total
 
-This template should help get you started developing with Vue 3 in Vite.
+Reserva, pagando con yape
 
 ## Recommended IDE Setup
 
@@ -84,10 +84,7 @@ Optional 2 : useful for access to system
     docker exec -it <ID-CONTAINER> sh
 ````
 
-
-
-
-### Preview v1
+### v1
 
 Release 2023-06-18
 
@@ -100,3 +97,16 @@ Release 2023-06-18
   * application mobile [Frontend]
 
 ![v1 reserva de campo](docs/v1-rentando.blogspot.com-iphone-se.png)
+
+
+### v2
+
+Release 2024-06-20
+
+* Remove DNI API Consulting (because you neeed to pay fee each month)
+* Support multi-accounts
+* App android and App web syncronized
+* App android (register your selft account for access to the website like owner)
+
+
+![v2 reserva total](docs/Screenshot_20240805_052020-1.png)
