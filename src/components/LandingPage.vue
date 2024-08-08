@@ -8,7 +8,7 @@
   import { Browser  } from '@/utils/helper';
   // import landingHtml from '@/assets/landing/index.js';
 
-  import landingHtml from '@/assets/landing/index.html?raw'
+  // import landingHtml from '@/assets/landing/index.html?raw'
 </script>
 
 <script >
@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      htmlContent: landingHtml,
+      htmlContent: '',
     };
   },
   computed: {
