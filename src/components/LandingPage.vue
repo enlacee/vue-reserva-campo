@@ -39,7 +39,7 @@ export default {
     <!-- <div v-html="landingHtml"></div> -->
     <!-- <iframe src="/public/index.html" frameborder="0" style="width:100%; height:100vh;"></iframe> -->
 
-    <iframe src="/index.html" frameborder="0" style="width:100%; height:100vh;"></iframe>
+    <iframe src="/public/index.html" frameborder="0" style="width:100%; height:100vh;"></iframe>
     <footer>
         <div class="demo-button">
             <a :href="Browser.getURLDemo()" class="btn-demo">Probar Demo</a>
