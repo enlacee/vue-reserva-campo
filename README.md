@@ -10,6 +10,11 @@ Reserva, pagando con yape
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
+## StartUp Landing page (home)
+
+[landing/README.md](landing/README.md)
+
+
 ## Project Setup
 
 ```sh
