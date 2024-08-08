@@ -85,7 +85,9 @@ Optional 2 : useful for access to system
     
     rm -r dist
     npm run build
-    cp -r dist/* docs
+
+    # hacerlo fuera del contenedor terminal normal
+    # cp -r dist/* docs
 ````
 
 ### v1 [link](https://rentando.blogspot.com/)
@@ -100,7 +102,7 @@ Release 2023-06-18
   * application web    [Frontend]
   * application mobile [Frontend]
 
-![v1 reserva de campo](docs/v1-rentando.blogspot.com-iphone-se.png)
+![v1 reserva de campo](docs/README/v1-rentando.blogspot.com-iphone-se.png)
 
 
 ### v2 [link](https://reservatotal.blogspot.com/)
@@ -113,4 +115,4 @@ Release 2024-06-20
 * App android (register your selft account for access to the website like owner)
 
 
-![v2 reserva total](docs/Screenshot_20240805_052020-1.png)
+![v2 reserva total](docs/README/Screenshot_20240805_052020-1.png)
