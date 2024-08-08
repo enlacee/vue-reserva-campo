@@ -82,6 +82,9 @@ Optional 2 : useful for access to system
 ```bash
     docker ps # to know the ID-CONTAINER
     docker exec -it <ID-CONTAINER> sh
+    
+    rm -r dist
+    npm run build
 ````
 
 ### v1 [link](https://rentando.blogspot.com/)
