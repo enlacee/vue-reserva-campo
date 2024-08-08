@@ -1,4 +1,5 @@
 const VITE_USER_DEMO_ID = import.meta.env.VITE_USER_DEMO_ID;
+const BASE_URL = import.meta.env.BASE_URL;
 
 /**
  * Get 24 hours format to printed
@@ -25,5 +26,8 @@ export const Browser = {
         }
 
         return result;
+    },
+    getURLDemo() {
+        return BASE_URL + `?id=${VITE_USER_DEMO_ID}`;
     }
 };
