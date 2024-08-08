@@ -6,7 +6,9 @@
  */
   import AppPage from '@/components/AppPage.vue';
   import { Browser  } from '@/utils/helper';
-  import landingHtml from '@/assets/landing/index.js';
+  // import landingHtml from '@/assets/landing/index.js';
+
+  import landingHtml from '@/assets/landing/index.html?raw'
 </script>
 
 <script >
@@ -30,7 +32,10 @@ export default {
   
 <template>
   <div v-if="showAppComponent == false">
-    <div v-html="htmlContent"></div>
+    <!-- <div v-html="htmlContent"></div> -->
+abc
+
+    
     <footer>
         <div class="demo-button">
             <a :href="Browser.getURLDemo()" class="btn-demo">Probar Demo</a>
