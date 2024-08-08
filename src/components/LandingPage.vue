@@ -6,6 +6,7 @@
  */
   import AppPage from '@/components/AppPage.vue';
   import { Browser  } from '@/utils/helper';
+  import landingHtml from '@/assets/landingHtml.js';
 </script>
 
 <script >
@@ -15,15 +16,8 @@
 export default {
   data() {
     return {
-      // landingHtml: null,
+      htmlContent: landingHtml,
     };
-  },
-  mounted() {
-    // fetch('/public/index.html')
-    //   .then(response => response.text())
-    //   .then(data => {
-    //     this.landingHtml = data;
-    //   });
   },
   computed: {
     showAppComponent() {
@@ -36,10 +30,7 @@ export default {
   
 <template>
   <div v-if="showAppComponent == false">
-    <!-- <div v-html="landingHtml"></div> -->
-    <!-- <iframe src="/public/index.html" frameborder="0" style="width:100%; height:100vh;"></iframe> -->
-
-    <iframe src="/public/index.html" frameborder="0" style="width:100%; height:100vh;"></iframe>
+    <div v-html="htmlContent"></div>
     <footer>
         <div class="demo-button">
             <a :href="Browser.getURLDemo()" class="btn-demo">Probar Demo</a>
