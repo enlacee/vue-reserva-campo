@@ -1,9 +1,5 @@
 # Solid
 
-Requirements:
-
-    - node v14
-
 A landing page template.
 
 * [Getting started](#getting-started)
@@ -17,17 +13,18 @@ A landing page template.
 You're ready to go! Run any task by typing `npm run task` (where "task" is the name of the task in the `"scripts"` object). The most useful task for rapid development is `watch`. It will start a new server, open up a browser and watch for any SCSS or JS changes in the `src` directory; once it compiles those changes, the browser will automatically inject the changed file(s)!
 
 
-## dev
+# Dev
 
-nvm use 14
-npm install
-npm run build # for production create dist directory
-npm run watch # to make changes
+Requirements
+
+node v14
 
 
-Tricks downlads all content html and dependencies into `landing` directory
-Usefull to get all simple to get `index.html`
+	npm install
+	npm run build
+	npm run watch
 
-    cd public
-    rm -rf ./*
-    wget -r -l1 -np -nd -E -k -p -A.html,.css,.js,.jpg,.png,.gif,.svg http://localhost:3000
+	cd public
+	rm -rf *
+	wget -r -l1 -np -nd -E -k -p -A.html,.css,.js,.jpg,.png,.gif, .svg http://localhost:3000
+
