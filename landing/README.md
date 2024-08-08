@@ -27,4 +27,5 @@ node v14
 	cd public
 	rm -rf *
 	wget -r -l1 -np -nd -E -k -p -A.html,.css,.js,.jpg,.png,.gif, .svg http://localhost:3000
+	cp index.html ../src/assets/landing/index.html
 

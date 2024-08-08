@@ -6,7 +6,7 @@
  */
   import AppPage from '@/components/AppPage.vue';
   import { Browser  } from '@/utils/helper';
-  import landingHtml from '@/assets/landingHtml.js';
+  import landingHtml from '@/assets/landing/index.js';
 </script>
 
 <script >
