@@ -85,6 +85,7 @@ Optional 2 : useful for access to system
     
     rm -r dist
     npm run build
+    cp -r dist/* docs
 ````
 
 ### v1 [link](https://rentando.blogspot.com/)
