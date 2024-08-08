@@ -8,7 +8,7 @@
   import { Browser  } from '@/utils/helper';
   // import landingHtml from '@/assets/landing/index.js';
 
-  import landingHtml from '@/assets/landing/index.html?raw'
+  // import landingHtml from '@/assets/landing/index.html?raw'
 </script>
 
 <script >
@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-      htmlContent: landingHtml,
+      htmlContent: '',
     };
   },
   computed: {
@@ -32,7 +32,9 @@ export default {
   
 <template>
   <div v-if="showAppComponent == false">
-    <div v-html="htmlContent"></div>
+    <!-- <div v-html="htmlContent"></div> -->
+abc
+
     
     <footer>
         <div class="demo-button">
