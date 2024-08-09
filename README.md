@@ -54,8 +54,7 @@ npm run test
     cd repositorio
 ```
 
-3.1 Adding .env file with the next content
-
+3.1 Adding `.env` (production) file with the next content
 
     VITE_APP_TITLE="Reserva Total"
     VITE_APP_AUTHOR_NAME="EscribeSoft"
@@ -64,10 +63,22 @@ npm run test
 
     # ANDROID VARIABLES
     VITE_API_BASE_URL_APP="https://script.google.com/macros/s/aaaabbbb/exec"
-    # VITE_API_BASE_URL_WEB=""
-    VITE_BASE_URL_WEB="https://reservatotal.blogspot.com"
     VITE_USER_DEMO_ID= "1720847377722-6667"
 
+    BASE_URL="https://reservatotal.anibalcopitan.com/"
+
+3.1 Adding `.env.development` (local) 
+
+    VITE_APP_TITLE="Reserva Total"
+    VITE_APP_AUTHOR_NAME="EscribeSoft"
+    VITE_APP_AUTHOR_URL="https://escribesoft.blogspot.com/"
+    VITE_API_APPSCRIPT="https://script.google.com/macros/s/xxxzzzz/exec"
+
+    # ANDROID VARIABLES
+    VITE_API_BASE_URL_APP="https://script.google.com/macros/s/aaaabbbb/exec"
+    VITE_USER_DEMO_ID= "1720847377722-6667"
+
+    BASE_URL="http://localhost:4000/"
 
 4.- Execute the next command:
 
@@ -119,5 +130,5 @@ Release 2024-06-20
 * App android and App web syncronized
 * App android (register your selft account for access to the website like owner)
 
-
+![v2 Landing page](docs/README/Screenshot_20240809_002412.png)
 ![v2 reserva total](docs/README/Screenshot_20240805_052020-1.png)
