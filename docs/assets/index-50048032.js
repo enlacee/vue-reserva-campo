@@ -154,7 +154,7 @@ ${JSON.stringify(G,null,2)}
                         <div class="hero-copy">
                             <h1 class="hero-title mt-0">Reserva Total</h1>
                             <p class="hero-paragraph">
-                                Ahorra Tiempo en Reservas y Pagos en Canchas de Fútbol con <b>Yape</b>
+                                Ahorra Tiempo en Reservas y Pagos en Canchas de Fútbol con <b>Yape</b> 🇵🇪
                             </p>
                             <div class="hero-cta"><a class="button button-primary" href="https://wa.link/2fgsz2">Solicita una Demo Gratis</a><a class="button button-whatsapp" href="https://reservatotal.anibalcopitan.com/apk/app-release.apk">Descargar App</a></div>
                         </div>
@@ -231,7 +231,7 @@ ${JSON.stringify(G,null,2)}
         </footer>
     </div>
 
-    <script src="main.min.js"><\/script>
+    <script src="main.min.js" defer><\/script>
 </body>
 </html>
 `;const zy={key:0},Ty=["innerHTML"],Uy={class:"demo-button"},Ly=["href"],Yy={key:1},Jy={data(){return{htmlContent:Py}},computed:{showAppComponent(){return!!this.$route.query.id}}},Gy=Object.assign(Jy,{__name:"LandingPage",setup(e){return(t,n)=>(ee(),ie(Se,null,[t.showAppComponent==!1?(ee(),ie("div",zy,[y("div",{innerHTML:t.htmlContent},null,8,Ty),y("footer",null,[y("div",Uy,[y("a",{href:_e(wr).getURLDemo(),class:"btn-demo"},"Probar Demo",8,Ly)])])])):te("v-if",!0),t.showAppComponent==!0?(ee(),ie("div",Yy,[be(My)])):te("v-if",!0)],64))}}),Fy=Fe(Gy,[["__scopeId","data-v-a64c1ef0"],["__file","/usr/app/src/components/LandingPage.vue"]]);/*!
