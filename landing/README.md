@@ -19,7 +19,7 @@ Requirements
 
 node v14
 
-
+	nvm use 14
 	npm install
 	npm run build
 	npm run watch
