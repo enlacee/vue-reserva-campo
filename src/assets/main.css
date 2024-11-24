@@ -3,3 +3,28 @@
 #app {
     /* border:1px solid red; */
 }
+
+/**
+* Custom background web 
+**/
+body{
+    background: linear-gradient(45deg, #6a82fb, #fc5c7d, #6a82fb, #00c6ff);
+    animation: gradientAnimation 12s ease infinite; /* Animación de movimiento para darle dinamismo */
+    background-size: 400% 400%; /* Hace que el gradiente se extienda a través del fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Animación del gradiente para el fondo */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
