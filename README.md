@@ -54,6 +54,11 @@ npm run test
     cd repositorio
 ```
 
+Important!! You must be change the variables in the files `.env` & `.env.development`:
+
+    VITE_API_APPSCRIPT
+    VITE_API_BASE_URL_APP
+
 3.1 Adding `.env` (production) file with the next content
 
     VITE_APP_TITLE="Reserva Total"
