@@ -26,6 +26,13 @@ npm run build # Compile and Minify for Production
 npm run test # Test
 ```
 
+### Install Landing page (home site)
+
+```bash
+cd landing
+cat README.md # follows the commands (tricks commands)
+```
+
 ### Installation by Docker (recomended)
 
 1.- You must be installed docker in your system.  
