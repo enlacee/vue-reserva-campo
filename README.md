@@ -17,29 +17,16 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
+### Installation by npm
+
 ```sh
 npm install
+npm run dev # Compile and Hot-Reload for Development
+npm run build # Compile and Minify for Production
+npm run test # Test
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### test
-
-```sh
-npm run test
-```
-
-## Installation by Docker
+### Installation by Docker (recomended)
 
 1.- You must be installed docker in your system.  
 2.- Clone this repository to your local machine.  
