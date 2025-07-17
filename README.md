@@ -102,7 +102,7 @@ Optional 2 : useful for access to system
     npm run build
 
     # hacerlo fuera del contenedor terminal normal
-    # cp -r dist/* docs
+    cp -r dist/* docs
 ````
 
 ### v1 [link](https://rentando.blogspot.com/)
